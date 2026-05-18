@@ -41,7 +41,7 @@ export default function Marketplace() {
   })
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto h-full flex flex-col overflow-hidden">
       <FadeIn>
         <h1 className="text-2xl font-bold text-text mb-1">Marketplace</h1>
         <p className="text-text-secondary text-sm mb-6">Compre, venda e ofereça serviços para colegas da cooperativa</p>
@@ -80,7 +80,7 @@ export default function Marketplace() {
         </div>
       </FadeIn>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 flex-1 overflow-y-auto pr-1 content-start">
         {filtered.map((item, i) => (
           <ScrollReveal key={item.id} delay={i * 0.06}>
             <HoverCard>

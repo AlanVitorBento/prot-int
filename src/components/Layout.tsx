@@ -3,9 +3,9 @@ import Topbar from './Topbar'
 
 export default function Layout() {
   return (
-    <div className="min-h-screen bg-bg">
+    <div className="h-screen flex flex-col bg-bg overflow-hidden">
       <Topbar />
-      <main className="p-4 lg:p-6">
+      <main className="flex-1 p-4 lg:p-6 overflow-hidden">
         <Outlet />
       </main>
     </div>

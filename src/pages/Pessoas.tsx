@@ -18,7 +18,7 @@ export default function Pessoas() {
   const selected = pessoas.find(p => p.id === selectedId)
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto h-full flex flex-col overflow-hidden">
       <FadeIn>
         <h1 className="text-2xl font-bold text-text mb-1">Pessoas</h1>
         <p className="text-text-secondary text-sm mb-6">Encontre colegas e conecte-se com a equipe</p>
@@ -38,7 +38,7 @@ export default function Pessoas() {
         </div>
       </FadeIn>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 flex-1 overflow-y-auto pr-1 content-start">
         {filtered.map((pessoa, i) => (
           <StaggerItem key={pessoa.id} delay={0.05 + i * 0.04} onClick={() => setSelectedId(pessoa.id)}>
             <div className="bg-white rounded-xl border border-border/50 p-5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 cursor-pointer group">

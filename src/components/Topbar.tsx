@@ -14,7 +14,6 @@ import {
   Menu,
   X,
 } from 'lucide-react'
-import WeatherWidget from './WeatherWidget'
 
 const menuItems = [
   { to: '/', icon: Home, label: 'Home' },
@@ -96,8 +95,6 @@ export default function Topbar() {
 
           {/* Right actions */}
           <div className="flex items-center gap-1">
-            <WeatherWidget />
-
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

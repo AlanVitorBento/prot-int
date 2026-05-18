@@ -25,7 +25,7 @@ const filters = ['Todos', 'Notícias', 'Comunicados', 'Eventos', 'Canais']
 
 export default function Feed() {
   return (
-    <div className="max-w-3xl mx-auto">
+    <div className="max-w-3xl mx-auto h-full overflow-y-auto pr-1">
       <FadeIn>
         <h1 className="text-2xl font-bold text-text mb-1">Feed</h1>
         <p className="text-text-secondary text-sm mb-6">Acompanhe tudo que acontece na C.Vale</p>

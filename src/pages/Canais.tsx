@@ -40,7 +40,7 @@ export default function Canais() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto h-full flex flex-col overflow-hidden">
       <FadeIn>
         <h1 className="text-2xl font-bold text-text mb-1">Canais</h1>
         <p className="text-text-secondary text-sm mb-6">Participe das comunidades e fique por dentro das novidades</p>
@@ -60,8 +60,8 @@ export default function Canais() {
         </div>
       </FadeIn>
 
-      <div className="flex flex-col lg:flex-row gap-6">
-        <div className="w-full lg:w-96 space-y-3">
+      <div className="flex flex-col lg:flex-row gap-6 flex-1 min-h-0">
+        <div className="w-full lg:w-96 space-y-3 overflow-y-auto pr-1">
           {filtered.map((canal, i) => {
             const Icon = iconMap[canal.icon]
             const isFollowing = following.has(canal.id)
@@ -115,7 +115,7 @@ export default function Canais() {
           })}
         </div>
 
-        <div className="flex-1">
+        <div className="flex-1 overflow-y-auto pr-1">
           <AnimatePresence mode="wait">
             {selected ? (
               <motion.div
