@@ -27,6 +27,13 @@ import {
   Calculator,
   Briefcase,
   Phone,
+  Monitor,
+  TrendingUp,
+  CloudSun,
+  DollarSign,
+  BarChart2,
+  Calendar,
+  BookMarked,
 } from 'lucide-react'
 import { FadeIn, ScrollReveal, StaggerItem } from '../components/AnimatedCard'
 import NewsCarousel from '../components/NewsCarousel'
@@ -34,9 +41,15 @@ import EventCalendar from '../components/EventCalendar'
 import { WeatherCard } from '../components/WeatherWidget'
 import CotacoesWidget from '../components/CotacoesWidget'
 import PrecoDiaWidget from '../components/PrecoDiaWidget'
-import PodcastWidget from '../components/PodcastWidget'
 import RevistaWidget from '../components/RevistaWidget'
 import SearchBar from '../components/SearchBar'
+import ComunicadosBanner from '../components/ComunicadosBanner'
+import { useWidgetPreferences } from '../contexts/WidgetPreferences'
+import { areasDeNegocio } from '../data/mock'
+
+const areaIconMap: Record<string, React.ElementType> = {
+  Users, Monitor, TrendingUp, Wheat,
+}
 
 const allApps = [
   { id: 'holerite', nome: 'Holerite', icon: 'FileText', categoria: 'RH' },
@@ -81,10 +94,20 @@ const catColors: Record<string, string> = {
   Eventos: 'bg-amber-100 text-amber-700',
 }
 
+const widgetList = [
+  { key: 'precoDia' as const, label: 'Preço do Dia', icon: DollarSign, side: 'right' },
+  { key: 'cotacoes' as const, label: 'Cotações', icon: BarChart2, side: 'right' },
+  { key: 'eventCalendar' as const, label: 'Calendário de Eventos', icon: Calendar, side: 'right' },
+  { key: 'weather' as const, label: 'Clima', icon: CloudSun, side: 'right', note: 'Quando oculto, aparece no cabeçalho' },
+  { key: 'revista' as const, label: 'Revista', icon: BookMarked, side: 'left' },
+]
+
 export default function Home() {
   const [favorites, setFavorites] = useState<Set<string>>(new Set(defaultFavorites))
   const [showModal, setShowModal] = useState(false)
+  const [showWidgetModal, setShowWidgetModal] = useState(false)
   const [searchApps, setSearchApps] = useState('')
+  const { widgets, toggleWidget } = useWidgetPreferences()
 
   const favApps = allApps.filter(a => favorites.has(a.id))
 
@@ -117,6 +140,10 @@ export default function Home() {
       <div className="relative flex-shrink-0">
         <NewsCarousel />
       </div>
+
+      <FadeIn delay={0.1}>
+        <ComunicadosBanner />
+      </FadeIn>
 
       <FadeIn delay={0.15}>
         <SearchBar />
@@ -155,15 +182,13 @@ export default function Home() {
             )
           })}
 
-          <ScrollReveal delay={0.3}>
-            <div className="pt-2">
-              <PodcastWidget />
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal delay={0.35}>
-            <RevistaWidget />
-          </ScrollReveal>
+          {widgets.revista && (
+            <ScrollReveal delay={0.3}>
+              <div className="pt-2">
+                <RevistaWidget />
+              </div>
+            </ScrollReveal>
+          )}
         </div>
 
         {/* Center - News */}
@@ -214,24 +239,149 @@ export default function Home() {
           </FadeIn>
         </div>
 
-        {/* Right sidebar - Cotações + Events + Weather */}
+        {/* Right sidebar */}
         <div className="w-full lg:w-80 space-y-3 order-3">
-          <ScrollReveal delay={0.05}>
-            <PrecoDiaWidget />
-          </ScrollReveal>
-          <ScrollReveal delay={0.1}>
-            <CotacoesWidget />
-          </ScrollReveal>
-          <ScrollReveal delay={0.15}>
-            <EventCalendar />
-          </ScrollReveal>
-          <ScrollReveal delay={0.2}>
-            <WeatherCard />
-          </ScrollReveal>
+          {/* Areas shortcuts */}
+          <FadeIn delay={0.05}>
+            <div className="flex items-center justify-between mb-2 px-1">
+              <h3 className="text-sm font-semibold text-text-secondary uppercase tracking-wider">
+                Áreas de Negócio
+              </h3>
+              <motion.button
+                whileHover={{ scale: 1.1, rotate: 90 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setShowWidgetModal(true)}
+                className="p-1.5 rounded-lg hover:bg-primary/10 text-text-secondary hover:text-primary transition-colors"
+                title="Personalizar widgets"
+              >
+                <Settings2 className="w-4 h-4" />
+              </motion.button>
+            </div>
+            <div className="grid grid-cols-2 gap-2 mb-3">
+              {areasDeNegocio.map(area => {
+                const Icon = areaIconMap[area.icon]
+                return (
+                  <Link to={`/areas/${area.id}`} key={area.id}>
+                    <div className="bg-white rounded-xl border border-border/50 p-3 hover:shadow-md hover:shadow-primary/5 transition-all duration-300 cursor-pointer group text-center">
+                      <div className={`w-10 h-10 mx-auto rounded-lg bg-gradient-to-br ${area.gradient} flex items-center justify-center mb-1.5 shadow-sm`}>
+                        <Icon className="w-5 h-5 text-white" />
+                      </div>
+                      <span className="text-xs font-medium text-text-secondary group-hover:text-text transition-colors">{area.sigla}</span>
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+          </FadeIn>
+
+          {widgets.precoDia && (
+            <ScrollReveal delay={0.1}>
+              <PrecoDiaWidget />
+            </ScrollReveal>
+          )}
+          {widgets.cotacoes && (
+            <ScrollReveal delay={0.15}>
+              <CotacoesWidget />
+            </ScrollReveal>
+          )}
+          {widgets.eventCalendar && (
+            <ScrollReveal delay={0.2}>
+              <EventCalendar />
+            </ScrollReveal>
+          )}
+          {widgets.weather && (
+            <ScrollReveal delay={0.25}>
+              <WeatherCard />
+            </ScrollReveal>
+          )}
         </div>
       </div>
 
-      {/* Modal de personalização */}
+      {/* Modal de personalização de widgets */}
+      <AnimatePresence>
+        {showWidgetModal && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
+              onClick={() => setShowWidgetModal(false)}
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="fixed top-[15%] left-1/2 -translate-x-1/2 z-50 bg-white rounded-2xl shadow-2xl w-full max-w-md"
+            >
+              <div className="flex items-center justify-between px-5 py-4 border-b border-border/50">
+                <div>
+                  <h2 className="font-bold text-text text-lg">Personalizar Widgets</h2>
+                  <p className="text-xs text-text-secondary mt-0.5">Escolha quais widgets exibir na Home</p>
+                </div>
+                <button
+                  onClick={() => setShowWidgetModal(false)}
+                  className="p-2 rounded-xl hover:bg-gray-100 text-text-secondary transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              <div className="px-5 py-4 space-y-1">
+                {widgetList.map((w, i) => {
+                  const Icon = w.icon
+                  const enabled = widgets[w.key]
+                  return (
+                    <motion.button
+                      key={w.key}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.04 }}
+                      onClick={() => toggleWidget(w.key)}
+                      className="w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 hover:bg-gray-50"
+                    >
+                      <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${
+                        enabled ? 'bg-primary/10' : 'bg-gray-100'
+                      }`}>
+                        <Icon className={`w-4 h-4 ${enabled ? 'text-primary' : 'text-text-secondary'}`} />
+                      </div>
+                      <div className="flex-1 text-left">
+                        <span className={`text-sm font-medium ${enabled ? 'text-text' : 'text-text-secondary'}`}>
+                          {w.label}
+                        </span>
+                        {w.note && (
+                          <p className="text-[10px] text-text-secondary">{w.note}</p>
+                        )}
+                      </div>
+                      <div className={`w-10 h-6 rounded-full p-0.5 transition-colors duration-300 ${
+                        enabled ? 'bg-primary' : 'bg-gray-200'
+                      }`}>
+                        <motion.div
+                          animate={{ x: enabled ? 16 : 0 }}
+                          transition={{ type: 'spring', damping: 20, stiffness: 300 }}
+                          className="w-5 h-5 bg-white rounded-full shadow-sm"
+                        />
+                      </div>
+                    </motion.button>
+                  )
+                })}
+              </div>
+              <div className="px-5 py-3 border-t border-border/50 bg-bg/50 rounded-b-2xl">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setShowWidgetModal(false)}
+                  className="w-full px-4 py-2 bg-gradient-to-r from-primary to-primary-light text-white rounded-xl text-sm font-medium shadow-md shadow-primary/20"
+                >
+                  Concluído
+                </motion.button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Modal de personalização de atalhos */}
       <AnimatePresence>
         {showModal && (
           <>

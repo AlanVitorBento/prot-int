@@ -5,24 +5,27 @@ import {
   Bell,
   Home,
   Rss,
-  Hash,
+  Layers,
   LayoutGrid,
   ShoppingBag,
   Wheat,
   Menu,
   X,
 } from 'lucide-react'
+import WeatherWidget from './WeatherWidget'
+import { useWidgetPreferences } from '../contexts/WidgetPreferences'
 
 const menuItems = [
   { to: '/', icon: Home, label: 'Home' },
   { to: '/feed', icon: Rss, label: 'Feed' },
-  { to: '/canais', icon: Hash, label: 'Canais' },
+  { to: '/areas', icon: Layers, label: 'Áreas' },
   { to: '/sistemas', icon: LayoutGrid, label: 'Sistemas' },
   { to: '/marketplace', icon: ShoppingBag, label: 'Marketplace' },
 ]
 
 export default function Topbar() {
   const [mobileMenu, setMobileMenu] = useState(false)
+  const { widgets } = useWidgetPreferences()
 
   return (
     <>
@@ -80,6 +83,8 @@ export default function Topbar() {
 
           {/* Right actions */}
           <div className="flex items-center gap-1">
+            {!widgets.weather && <WeatherWidget />}
+
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

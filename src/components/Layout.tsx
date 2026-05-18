@@ -1,8 +1,10 @@
 import { Outlet } from 'react-router-dom'
 import Topbar from './Topbar'
+import { WidgetPreferencesProvider } from '../contexts/WidgetPreferences'
 
 export default function Layout() {
   return (
+    <WidgetPreferencesProvider>
     <div className="min-h-screen flex flex-col bg-bg relative">
       {/* Subtle ambient background shapes */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
@@ -15,5 +17,6 @@ export default function Layout() {
         <Outlet />
       </main>
     </div>
+    </WidgetPreferencesProvider>
   )
 }

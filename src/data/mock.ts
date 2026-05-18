@@ -113,6 +113,45 @@ export const sistemas = [
   { id: 12, nome: 'VPN', categoria: 'Infraestrutura', icon: 'Shield', favorito: false },
 ]
 
+export const areasDeNegocio = [
+  { id: 'rh', nome: 'Recursos Humanos', sigla: 'RH', descricao: 'Benefícios, treinamentos, desenvolvimento de pessoas', icon: 'Users', cor: '#2563EB', gradient: 'from-blue-500 to-blue-700' },
+  { id: 'ti', nome: 'Tecnologia da Informação', sigla: 'TI', descricao: 'Sistemas, segurança, tutoriais e suporte', icon: 'Monitor', cor: '#7C3AED', gradient: 'from-violet-500 to-violet-700' },
+  { id: 'comercial', nome: 'Comercial', sigla: 'Comercial', descricao: 'Metas, resultados, clientes e estratégias', icon: 'TrendingUp', cor: '#059669', gradient: 'from-emerald-500 to-emerald-700' },
+  { id: 'agricola', nome: 'Agrícola', sigla: 'Agrícola', descricao: 'Safra, técnicas de cultivo, cotações agrícolas', icon: 'Wheat', cor: '#D97706', gradient: 'from-amber-500 to-amber-700' },
+]
+
+export const artigosAreas = [
+  { id: 1, areaId: 'rh', titulo: 'Novo plano de saúde: o que muda para você', resumo: 'Confira as principais mudanças no plano de saúde corporativo, incluindo cobertura ampliada e novos conveniados em todas as unidades.', autor: 'Maria Silva', data: '15 Mai 2026', categoria: 'Benefícios', leitura: '3 min' },
+  { id: 2, areaId: 'rh', titulo: 'Calendário de treinamentos do 2º semestre', resumo: 'Programação completa de capacitações para o segundo semestre, incluindo trilhas de liderança e cursos técnicos.', autor: 'Fernanda Alves', data: '12 Mai 2026', categoria: 'Treinamentos', leitura: '5 min' },
+  { id: 3, areaId: 'rh', titulo: 'Como solicitar férias pelo portal', resumo: 'Passo a passo atualizado para solicitar suas férias pelo SuccessFactors, incluindo prazos e regras.', autor: 'Patrícia Mendes', data: '10 Mai 2026', categoria: 'Férias', leitura: '2 min' },
+  { id: 4, areaId: 'ti', titulo: 'Dicas de segurança: proteja sua conta', resumo: 'Boas práticas para manter suas credenciais seguras e evitar ataques de phishing no ambiente corporativo.', autor: 'Carlos Souza', data: '14 Mai 2026', categoria: 'Segurança', leitura: '4 min' },
+  { id: 5, areaId: 'ti', titulo: 'Tutorial: novo módulo do SAP', resumo: 'Guia completo para utilizar o novo módulo de compras do SAP, com capturas de tela e dicas práticas.', autor: 'Lucas Martins', data: '11 Mai 2026', categoria: 'Tutoriais', leitura: '6 min' },
+  { id: 6, areaId: 'ti', titulo: 'Atualização dos sistemas corporativos', resumo: 'Resumo das atualizações realizadas em maio nos sistemas SAP, SuccessFactors e Power BI.', autor: 'Felipe Araújo', data: '8 Mai 2026', categoria: 'Sistemas', leitura: '3 min' },
+  { id: 7, areaId: 'comercial', titulo: 'Resultados do Q1 2026: superamos a meta!', resumo: 'O primeiro trimestre fechou com 112% da meta de vendas. Confira os destaques por região.', autor: 'Juliana Pereira', data: '13 Mai 2026', categoria: 'Resultados', leitura: '4 min' },
+  { id: 8, areaId: 'comercial', titulo: 'Novos clientes na região Sul', resumo: 'Três novas cooperativas parceiras foram fechadas no Rio Grande do Sul, ampliando nossa presença.', autor: 'Renata Campos', data: '9 Mai 2026', categoria: 'Clientes', leitura: '3 min' },
+  { id: 9, areaId: 'agricola', titulo: 'Safra 2026/27: perspectivas e planejamento', resumo: 'Análise das condições climáticas e projeções de produtividade para a próxima safra de soja e milho.', autor: 'Roberto Lima', data: '16 Mai 2026', categoria: 'Safra', leitura: '5 min' },
+  { id: 10, areaId: 'agricola', titulo: 'Técnicas de manejo para milho safrinha', resumo: 'Orientações técnicas para maximizar a produtividade do milho safrinha, com foco em adubação e controle de pragas.', autor: 'Roberto Lima', data: '7 Mai 2026', categoria: 'Técnicas', leitura: '7 min' },
+]
+
+export const documentosAreas = [
+  { id: 1, areaId: 'rh', nome: 'Manual de Benefícios 2026.pdf', tipo: 'pdf', tamanho: '2.4 MB', modificado: '10 Mai 2026', autor: 'Maria Silva' },
+  { id: 2, areaId: 'rh', nome: 'Calendário de Treinamentos.xlsx', tipo: 'xlsx', tamanho: '156 KB', modificado: '12 Mai 2026', autor: 'Fernanda Alves' },
+  { id: 3, areaId: 'rh', nome: 'Política de Férias.pdf', tipo: 'pdf', tamanho: '890 KB', modificado: '5 Mai 2026', autor: 'Patrícia Mendes' },
+  { id: 4, areaId: 'ti', nome: 'Guia de Segurança da Informação.pdf', tipo: 'pdf', tamanho: '3.1 MB', modificado: '14 Mai 2026', autor: 'Carlos Souza' },
+  { id: 5, areaId: 'ti', nome: 'Procedimento de Abertura de Chamado.docx', tipo: 'docx', tamanho: '420 KB', modificado: '8 Mai 2026', autor: 'Lucas Martins' },
+  { id: 6, areaId: 'ti', nome: 'Inventário de Equipamentos.xlsx', tipo: 'xlsx', tamanho: '1.2 MB', modificado: '6 Mai 2026', autor: 'Felipe Araújo' },
+  { id: 7, areaId: 'comercial', nome: 'Relatório Q1 2026.pptx', tipo: 'pptx', tamanho: '5.8 MB', modificado: '13 Mai 2026', autor: 'Juliana Pereira' },
+  { id: 8, areaId: 'comercial', nome: 'Tabela de Preços Atualizada.xlsx', tipo: 'xlsx', tamanho: '210 KB', modificado: '9 Mai 2026', autor: 'Renata Campos' },
+  { id: 9, areaId: 'agricola', nome: 'Planejamento Safra 2026-27.pdf', tipo: 'pdf', tamanho: '4.2 MB', modificado: '16 Mai 2026', autor: 'Roberto Lima' },
+  { id: 10, areaId: 'agricola', nome: 'Manual de Manejo - Milho Safrinha.pdf', tipo: 'pdf', tamanho: '6.1 MB', modificado: '7 Mai 2026', autor: 'Roberto Lima' },
+  { id: 11, areaId: 'agricola', nome: 'Análise de Solo - Resultados.xlsx', tipo: 'xlsx', tamanho: '340 KB', modificado: '3 Mai 2026', autor: 'Roberto Lima' },
+]
+
+export const comunicados = [
+  { id: 1, tipo: 'conquista' as const, titulo: 'Meta de produção atingida!', descricao: 'Superamos a meta de recebimento de grãos do 1º trimestre em 18%. Parabéns a todos os cooperados!', icon: 'Trophy' },
+  { id: 2, tipo: 'comunicado' as const, titulo: 'Novo plano de saúde disponível', descricao: 'A partir de junho, o novo plano com cobertura ampliada estará disponível para adesão de todos os colaboradores.', icon: 'Megaphone' },
+]
+
 export const marketplace = [
   { id: 1, titulo: 'Apartamento 2 quartos', categoria: 'aluguel', descricao: 'Apartamento mobiliado, 2 quartos, próximo ao escritório central. Condomínio incluso.', preco: 'R$ 1.800/mês', usuario: 'João Pedro', data: '2 dias atrás', imagem: true },
   { id: 2, titulo: 'Honda Civic 2024', categoria: 'veiculos', descricao: 'Honda Civic EXL, 15.000km, único dono, todas as revisões na concessionária.', preco: 'R$ 142.000', usuario: 'Fernanda Alves', data: '3 dias atrás', imagem: true },
