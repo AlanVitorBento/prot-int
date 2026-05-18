@@ -85,18 +85,29 @@ export default function SearchBar() {
   return (
     <>
       <div ref={containerRef} className="relative w-full mb-5">
+        {/* Label */}
+        <div className="flex items-center gap-2 mb-2">
+          <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-primary to-primary-light flex items-center justify-center">
+            <Users className="w-3.5 h-3.5 text-white" />
+          </div>
+          <span className="text-sm font-semibold text-text">Buscar Colaboradores</span>
+          <span className="text-[10px] text-text-secondary bg-bg px-2 py-0.5 rounded-full">Nome, cargo, área, matrícula, ramal</span>
+        </div>
+
         <div className={`relative flex items-center transition-all duration-300 ${
-          focused ? 'ring-2 ring-primary/30 shadow-xl shadow-primary/10' : 'shadow-md shadow-black/5'
-        } bg-white rounded-xl border border-border overflow-hidden`}>
-          <Search className="absolute left-4 w-5 h-5 text-primary/50 pointer-events-none" />
+          focused ? 'ring-2 ring-primary/30 shadow-xl shadow-primary/10 border-primary/40' : 'shadow-md shadow-black/5 border-border'
+        } bg-white rounded-xl border overflow-hidden`}>
+          <div className="absolute left-3 w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center pointer-events-none">
+            <Search className="w-4.5 h-4.5 text-primary" />
+          </div>
           <input
             ref={inputRef}
             type="text"
             value={query}
             onChange={e => setQuery(e.target.value)}
             onFocus={() => setFocused(true)}
-            placeholder="Buscar pessoas, cargos, áreas, matrícula, ramais..."
-            className="w-full pl-12 pr-10 py-3.5 text-sm bg-transparent focus:outline-none placeholder:text-text-secondary"
+            placeholder="Digite um nome, cargo, área, matrícula ou ramal..."
+            className="w-full pl-14 pr-10 py-3.5 text-sm bg-transparent focus:outline-none placeholder:text-text-secondary/70"
           />
           {query && (
             <button
