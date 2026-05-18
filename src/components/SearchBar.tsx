@@ -86,9 +86,9 @@ export default function SearchBar() {
     <>
       <div ref={containerRef} className="relative w-full mb-5">
         <div className={`relative flex items-center transition-all duration-300 ${
-          focused ? 'ring-2 ring-primary/20 shadow-lg shadow-primary/5' : ''
-        } bg-white rounded-xl border border-border/50 overflow-hidden`}>
-          <Search className="absolute left-4 w-4.5 h-4.5 text-text-secondary pointer-events-none" />
+          focused ? 'ring-2 ring-primary/30 shadow-xl shadow-primary/10' : 'shadow-md shadow-black/5'
+        } bg-white rounded-xl border border-border overflow-hidden`}>
+          <Search className="absolute left-4 w-5 h-5 text-primary/50 pointer-events-none" />
           <input
             ref={inputRef}
             type="text"
@@ -96,7 +96,7 @@ export default function SearchBar() {
             onChange={e => setQuery(e.target.value)}
             onFocus={() => setFocused(true)}
             placeholder="Buscar pessoas, cargos, áreas, matrícula, ramais..."
-            className="w-full pl-11 pr-10 py-3 text-sm bg-transparent focus:outline-none placeholder:text-text-secondary/60"
+            className="w-full pl-12 pr-10 py-3.5 text-sm bg-transparent focus:outline-none placeholder:text-text-secondary"
           />
           {query && (
             <button
