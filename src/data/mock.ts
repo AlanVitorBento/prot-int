@@ -84,14 +84,18 @@ export const canais = [
 ]
 
 export const pessoas = [
-  { id: 1, nome: 'Maria Silva', cargo: 'Diretora de RH', area: 'Recursos Humanos', unidade: 'Matriz', gestor: 'Pedro Santos', email: 'maria.silva@empresa.com', avatar: 'MS' },
-  { id: 2, nome: 'Carlos Souza', cargo: 'Coordenador de TI', area: 'Tecnologia', unidade: 'Matriz', gestor: 'Ana Costa', email: 'carlos.souza@empresa.com', avatar: 'CS' },
-  { id: 3, nome: 'Ana Costa', cargo: 'Gerente de Inovação', area: 'Inovação', unidade: 'Matriz', gestor: 'Pedro Santos', email: 'ana.costa@empresa.com', avatar: 'AC' },
-  { id: 4, nome: 'Roberto Lima', cargo: 'Analista Ambiental', area: 'Sustentabilidade', unidade: 'Filial SP', gestor: 'Maria Silva', email: 'roberto.lima@empresa.com', avatar: 'RL' },
-  { id: 5, nome: 'Fernanda Alves', cargo: 'Analista de RH', area: 'Recursos Humanos', unidade: 'Matriz', gestor: 'Maria Silva', email: 'fernanda.alves@empresa.com', avatar: 'FA' },
-  { id: 6, nome: 'Lucas Martins', cargo: 'Desenvolvedor Full Stack', area: 'Tecnologia', unidade: 'Matriz', gestor: 'Carlos Souza', email: 'lucas.martins@empresa.com', avatar: 'LM' },
-  { id: 7, nome: 'Juliana Pereira', cargo: 'Gerente Comercial', area: 'Comercial', unidade: 'Filial RJ', gestor: 'Pedro Santos', email: 'juliana.pereira@empresa.com', avatar: 'JP' },
-  { id: 8, nome: 'Marcos Oliveira', cargo: 'Analista de BI', area: 'Tecnologia', unidade: 'Matriz', gestor: 'Carlos Souza', email: 'marcos.oliveira@empresa.com', avatar: 'MO' },
+  { id: 1, matricula: '10245', nome: 'Maria Silva', cargo: 'Diretora de RH', area: 'Recursos Humanos', unidade: 'Palotina - Matriz', gestor: 'Pedro Santos', email: 'maria.silva@cvale.com.br', ramal: '2001', avatar: 'MS' },
+  { id: 2, matricula: '10312', nome: 'Carlos Souza', cargo: 'Coordenador de TI', area: 'Tecnologia da Informação', unidade: 'Palotina - Matriz', gestor: 'Ana Costa', email: 'carlos.souza@cvale.com.br', ramal: '2045', avatar: 'CS' },
+  { id: 3, matricula: '10089', nome: 'Ana Costa', cargo: 'Gerente de Inovação', area: 'Inovação e Tecnologia', unidade: 'Palotina - Matriz', gestor: 'Pedro Santos', email: 'ana.costa@cvale.com.br', ramal: '2010', avatar: 'AC' },
+  { id: 4, matricula: '10567', nome: 'Roberto Lima', cargo: 'Analista Ambiental', area: 'Sustentabilidade', unidade: 'Assis Chateaubriand', gestor: 'Maria Silva', email: 'roberto.lima@cvale.com.br', ramal: '3012', avatar: 'RL' },
+  { id: 5, matricula: '10678', nome: 'Fernanda Alves', cargo: 'Analista de RH', area: 'Recursos Humanos', unidade: 'Palotina - Matriz', gestor: 'Maria Silva', email: 'fernanda.alves@cvale.com.br', ramal: '2003', avatar: 'FA' },
+  { id: 6, matricula: '10890', nome: 'Lucas Martins', cargo: 'Desenvolvedor Full Stack', area: 'Tecnologia da Informação', unidade: 'Palotina - Matriz', gestor: 'Carlos Souza', email: 'lucas.martins@cvale.com.br', ramal: '2048', avatar: 'LM' },
+  { id: 7, matricula: '10134', nome: 'Juliana Pereira', cargo: 'Gerente Comercial', area: 'Comercial', unidade: 'Cascavel', gestor: 'Pedro Santos', email: 'juliana.pereira@cvale.com.br', ramal: '4001', avatar: 'JP' },
+  { id: 8, matricula: '10445', nome: 'Marcos Oliveira', cargo: 'Analista de BI', area: 'Tecnologia da Informação', unidade: 'Palotina - Matriz', gestor: 'Carlos Souza', email: 'marcos.oliveira@cvale.com.br', ramal: '2050', avatar: 'MO' },
+  { id: 9, matricula: '10923', nome: 'Patrícia Mendes', cargo: 'Analista de RH', area: 'Recursos Humanos', unidade: 'Cascavel', gestor: 'Maria Silva', email: 'patricia.mendes@cvale.com.br', ramal: '4015', avatar: 'PM' },
+  { id: 10, matricula: '10111', nome: 'Pedro Santos', cargo: 'Diretor Presidente', area: 'Diretoria', unidade: 'Palotina - Matriz', gestor: '-', email: 'pedro.santos@cvale.com.br', ramal: '2000', avatar: 'PS' },
+  { id: 11, matricula: '11045', nome: 'Renata Campos', cargo: 'Coordenadora Comercial', area: 'Comercial', unidade: 'Marechal Cândido Rondon', gestor: 'Juliana Pereira', email: 'renata.campos@cvale.com.br', ramal: '5001', avatar: 'RC' },
+  { id: 12, matricula: '11200', nome: 'Felipe Araújo', cargo: 'Desenvolvedor Full Stack', area: 'Tecnologia da Informação', unidade: 'Palotina - Matriz', gestor: 'Carlos Souza', email: 'felipe.araujo@cvale.com.br', ramal: '2049', avatar: 'FA' },
 ]
 
 export const sistemas = [

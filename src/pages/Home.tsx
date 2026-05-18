@@ -36,6 +36,7 @@ import CotacoesWidget from '../components/CotacoesWidget'
 import PrecoDiaWidget from '../components/PrecoDiaWidget'
 import PodcastWidget from '../components/PodcastWidget'
 import RevistaWidget from '../components/RevistaWidget'
+import SearchBar from '../components/SearchBar'
 
 const allApps = [
   { id: 'holerite', nome: 'Holerite', icon: 'FileText', categoria: 'RH' },
@@ -116,6 +117,10 @@ export default function Home() {
       <div className="relative flex-shrink-0">
         <NewsCarousel />
       </div>
+
+      <FadeIn delay={0.15}>
+        <SearchBar />
+      </FadeIn>
 
       <div className="relative flex flex-col lg:flex-row gap-5 flex-1 min-h-0">
         {/* Left sidebar - Quick access + Podcast + Revista */}

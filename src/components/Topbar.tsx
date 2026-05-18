@@ -2,12 +2,10 @@ import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
 import {
-  Search,
   Bell,
   Home,
   Rss,
   Hash,
-  Users,
   LayoutGrid,
   ShoppingBag,
   Wheat,
@@ -19,7 +17,6 @@ const menuItems = [
   { to: '/', icon: Home, label: 'Home' },
   { to: '/feed', icon: Rss, label: 'Feed' },
   { to: '/canais', icon: Hash, label: 'Canais' },
-  { to: '/pessoas', icon: Users, label: 'Pessoas' },
   { to: '/sistemas', icon: LayoutGrid, label: 'Sistemas' },
   { to: '/marketplace', icon: ShoppingBag, label: 'Marketplace' },
 ]
@@ -79,19 +76,7 @@ export default function Topbar() {
             ))}
           </nav>
 
-          {/* Search */}
-          <div className="flex-1 lg:flex-initial lg:w-64">
-            <div className="relative group">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/40 group-focus-within:text-white/70 transition-colors" />
-              <input
-                type="text"
-                placeholder="Buscar..."
-                className="w-full pl-9 pr-3 py-1.5 bg-white/10 rounded-lg border border-white/10 text-sm text-white
-                  focus:outline-none focus:ring-1 focus:ring-white/20 focus:bg-white/15
-                  transition-all duration-300 placeholder:text-white/40"
-              />
-            </div>
-          </div>
+          <div className="flex-1" />
 
           {/* Right actions */}
           <div className="flex items-center gap-1">
