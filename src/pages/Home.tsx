@@ -32,6 +32,10 @@ import { FadeIn, ScrollReveal, StaggerItem } from '../components/AnimatedCard'
 import NewsCarousel from '../components/NewsCarousel'
 import EventCalendar from '../components/EventCalendar'
 import { WeatherCard } from '../components/WeatherWidget'
+import CotacoesWidget from '../components/CotacoesWidget'
+import PrecoDiaWidget from '../components/PrecoDiaWidget'
+import PodcastWidget from '../components/PodcastWidget'
+import RevistaWidget from '../components/RevistaWidget'
 
 const allApps = [
   { id: 'holerite', nome: 'Holerite', icon: 'FileText', categoria: 'RH' },
@@ -100,14 +104,22 @@ export default function Home() {
   const categorias = [...new Set(allApps.map(a => a.categoria))]
 
   return (
-    <div className="max-w-7xl mx-auto h-full flex flex-col overflow-hidden">
-      <div className="flex-shrink-0">
+    <div className="relative max-w-[1400px] mx-auto h-full flex flex-col overflow-hidden">
+      {/* Subtle background decorations */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-20 -left-20 w-72 h-72 bg-primary/[0.03] rounded-full blur-3xl" />
+        <div className="absolute top-1/3 -right-16 w-56 h-56 bg-accent/[0.03] rounded-full blur-3xl" />
+        <div className="absolute -bottom-16 left-1/4 w-64 h-64 bg-primary/[0.02] rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(33,64,154,0.015)_0%,transparent_70%)]" />
+      </div>
+
+      <div className="relative flex-shrink-0">
         <NewsCarousel />
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-6 flex-1 min-h-0">
-        {/* Sidebar esquerda - Atalhos */}
-        <div className="w-full lg:w-56 space-y-2 order-2 lg:order-1 overflow-y-auto pr-1">
+      <div className="relative flex flex-col lg:flex-row gap-5 flex-1 min-h-0">
+        {/* Left sidebar - Quick access + Podcast + Revista */}
+        <div className="w-full lg:w-64 space-y-3 order-2 lg:order-1 overflow-y-auto pr-1">
           <FadeIn delay={0.1}>
             <div className="flex items-center justify-between mb-3 px-1">
               <h2 className="text-sm font-semibold text-text-secondary uppercase tracking-wider">
@@ -137,9 +149,19 @@ export default function Home() {
               </StaggerItem>
             )
           })}
+
+          <ScrollReveal delay={0.3}>
+            <div className="pt-2">
+              <PodcastWidget />
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.35}>
+            <RevistaWidget />
+          </ScrollReveal>
         </div>
 
-        {/* Centro - Notícias */}
+        {/* Center - News */}
         <div className="flex-1 space-y-4 order-1 lg:order-2 overflow-y-auto pr-1">
           <FadeIn delay={0.2}>
             <h2 className="text-lg font-semibold text-text flex items-center gap-2">
@@ -187,9 +209,15 @@ export default function Home() {
           </FadeIn>
         </div>
 
-        {/* Sidebar direita - Eventos + Clima */}
-        <div className="w-full lg:w-80 space-y-4 order-3 overflow-y-auto pr-1">
+        {/* Right sidebar - Cotações + Events + Weather */}
+        <div className="w-full lg:w-80 space-y-3 order-3 overflow-y-auto pr-1">
+          <ScrollReveal delay={0.05}>
+            <PrecoDiaWidget />
+          </ScrollReveal>
           <ScrollReveal delay={0.1}>
+            <CotacoesWidget />
+          </ScrollReveal>
+          <ScrollReveal delay={0.15}>
             <EventCalendar />
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
