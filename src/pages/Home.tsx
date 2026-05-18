@@ -8,19 +8,16 @@ import {
   GraduationCap,
   MessageSquare,
   BarChart3,
-  Cake,
   Megaphone,
   Newspaper,
   CalendarCheck,
   Hash,
   Wheat,
-  TrendingUp,
-  Users,
 } from 'lucide-react'
 import { FadeIn, ScrollReveal, StaggerItem, HoverCard } from '../components/AnimatedCard'
 import NewsCarousel from '../components/NewsCarousel'
 import EventCalendar from '../components/EventCalendar'
-import { feedPosts, aniversariantes, atalhos } from '../data/mock'
+import { feedPosts, atalhos } from '../data/mock'
 
 const iconMap: Record<string, React.ElementType> = {
   FileText, Clock, Database, GraduationCap, MessageSquare, BarChart3,
@@ -33,32 +30,11 @@ const typeConfig = {
   canal: { label: 'Canal', icon: Hash, color: 'bg-purple-100 text-purple-700' },
 }
 
-const stats = [
-  { label: 'Colaboradores', value: '1.247', icon: Users },
-  { label: 'Unidades', value: '42', icon: Wheat },
-  { label: 'Publicações hoje', value: '18', icon: TrendingUp },
-]
-
 export default function Home() {
   return (
     <div className="max-w-7xl mx-auto">
       {/* News Carousel */}
       <NewsCarousel />
-
-      {/* Stats bar */}
-      <FadeIn delay={0.1}>
-        <div className="flex flex-wrap gap-3 mb-6">
-          {stats.map((stat) => (
-            <div key={stat.label} className="flex items-center gap-2 bg-white border border-border/50 rounded-xl px-4 py-2.5 shadow-sm">
-              <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                <stat.icon className="w-4 h-4 text-primary" />
-              </div>
-              <span className="text-lg font-bold text-text">{stat.value}</span>
-              <span className="text-xs text-text-secondary">{stat.label}</span>
-            </div>
-          ))}
-        </div>
-      </FadeIn>
 
       {/* Quick Links */}
       <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 mb-6">
@@ -146,42 +122,8 @@ export default function Home() {
 
         {/* Widgets */}
         <div className="w-full lg:w-80 space-y-4">
-          {/* Aniversariantes */}
-          <ScrollReveal delay={0.1}>
-            <div className="glass rounded-xl p-4 grain">
-              <div className="flex items-center gap-2 mb-3 relative">
-                <div className="w-8 h-8 bg-gradient-to-br from-pink-500 to-rose-400 rounded-lg flex items-center justify-center shadow-sm">
-                  <Cake className="w-4 h-4 text-white" />
-                </div>
-                <h3 className="font-semibold text-sm text-text">Aniversariantes</h3>
-              </div>
-              <div className="space-y-3 relative">
-                {aniversariantes.map((a, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.3 + i * 0.1 }}
-                    className="flex items-center gap-3"
-                  >
-                    <div className="w-8 h-8 bg-gradient-to-br from-pink-100 to-rose-100 rounded-full flex items-center justify-center text-pink-600 text-xs font-medium">
-                      {a.nome.split(' ').map(n => n[0]).join('')}
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-sm font-medium text-text">{a.nome}</p>
-                      <p className="text-xs text-text-secondary">{a.area}</p>
-                    </div>
-                    <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${a.dia === 'Hoje' ? 'bg-pink-100 text-pink-600' : 'bg-gray-100 text-text-secondary'}`}>
-                      {a.dia}
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </ScrollReveal>
-
           {/* Eventos com calendário */}
-          <ScrollReveal delay={0.2}>
+          <ScrollReveal delay={0.1}>
             <EventCalendar />
           </ScrollReveal>
         </div>
