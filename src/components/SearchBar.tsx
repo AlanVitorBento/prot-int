@@ -84,7 +84,7 @@ export default function SearchBar() {
 
   return (
     <>
-      <div ref={containerRef} className="relative w-full max-w-2xl mx-auto mb-5">
+      <div ref={containerRef} className="relative w-full mb-5">
         <div className={`relative flex items-center transition-all duration-300 ${
           focused ? 'ring-2 ring-primary/20 shadow-lg shadow-primary/5' : ''
         } bg-white rounded-xl border border-border/50 overflow-hidden`}>

@@ -105,7 +105,7 @@ export default function Home() {
   const categorias = [...new Set(allApps.map(a => a.categoria))]
 
   return (
-    <div className="relative max-w-[1400px] mx-auto h-full flex flex-col overflow-hidden">
+    <div className="relative max-w-[1400px] mx-auto">
       {/* Subtle background decorations */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -top-20 -left-20 w-72 h-72 bg-primary/[0.03] rounded-full blur-3xl" />
@@ -122,9 +122,9 @@ export default function Home() {
         <SearchBar />
       </FadeIn>
 
-      <div className="relative flex flex-col lg:flex-row gap-5 flex-1 min-h-0">
+      <div className="relative flex flex-col lg:flex-row gap-5">
         {/* Left sidebar - Quick access + Podcast + Revista */}
-        <div className="w-full lg:w-64 space-y-3 order-2 lg:order-1 overflow-y-auto pr-1">
+        <div className="w-full lg:w-64 space-y-3 order-2 lg:order-1">
           <FadeIn delay={0.1}>
             <div className="flex items-center justify-between mb-3 px-1">
               <h2 className="text-sm font-semibold text-text-secondary uppercase tracking-wider">
@@ -167,7 +167,7 @@ export default function Home() {
         </div>
 
         {/* Center - News */}
-        <div className="flex-1 space-y-4 order-1 lg:order-2 overflow-y-auto pr-1">
+        <div className="flex-1 space-y-4 order-1 lg:order-2">
           <FadeIn delay={0.2}>
             <h2 className="text-lg font-semibold text-text flex items-center gap-2">
               <div className="w-1 h-5 bg-gradient-to-b from-primary to-primary-light rounded-full" />
@@ -215,7 +215,7 @@ export default function Home() {
         </div>
 
         {/* Right sidebar - Cotações + Events + Weather */}
-        <div className="w-full lg:w-80 space-y-3 order-3 overflow-y-auto pr-1">
+        <div className="w-full lg:w-80 space-y-3 order-3">
           <ScrollReveal delay={0.05}>
             <PrecoDiaWidget />
           </ScrollReveal>

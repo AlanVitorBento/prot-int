@@ -51,7 +51,7 @@ export default function Sistemas() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto h-full flex flex-col overflow-hidden">
+    <div className="max-w-7xl mx-auto">
       <FadeIn>
         <h1 className="text-2xl font-bold text-text mb-1">Sistemas</h1>
         <p className="text-text-secondary text-sm mb-6">Acesse todas as ferramentas da cooperativa em um só lugar</p>
@@ -90,7 +90,7 @@ export default function Sistemas() {
         </div>
       </FadeIn>
 
-      <div className="flex-1 overflow-y-auto pr-1">
+      <div>
       {/* Favoritos */}
       {categoria === 'Todos' && (
         <div className="mb-8">

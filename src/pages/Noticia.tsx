@@ -115,7 +115,7 @@ export default function Noticia() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto h-full overflow-y-auto pr-1">
+    <div className="max-w-3xl mx-auto">
       {/* Back button */}
       <FadeIn>
         <Link
