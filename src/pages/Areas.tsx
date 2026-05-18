@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useParams, useSearchParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
 import {
   Users,
@@ -45,9 +45,18 @@ type Tab = 'artigos' | 'documentos' | 'beneficios'
 
 export default function Areas() {
   const { areaId } = useParams<{ areaId?: string }>()
+  const [searchParams] = useSearchParams()
   const [selected, setSelected] = useState<string | null>(areaId || null)
   const [tab, setTab] = useState<Tab>('artigos')
   const [busca, setBusca] = useState('')
+
+  useEffect(() => {
+    if (areaId) setSelected(areaId)
+    const tabParam = searchParams.get('tab')
+    if (tabParam === 'beneficios' || tabParam === 'artigos' || tabParam === 'documentos') {
+      setTab(tabParam)
+    }
+  }, [areaId, searchParams])
 
   const area = areasDeNegocio.find(a => a.id === selected)
   const artigos = artigosAreas.filter(a => a.areaId === selected)
