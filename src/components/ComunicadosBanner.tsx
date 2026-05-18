@@ -1,12 +1,25 @@
 import { motion } from 'motion/react'
-import { Trophy, Megaphone } from 'lucide-react'
+import { Trophy, Megaphone, HeartPulse } from 'lucide-react'
 import { comunicados } from '../data/mock'
 
-const iconMap: Record<string, React.ElementType> = { Trophy, Megaphone }
+const iconMap: Record<string, React.ElementType> = { Trophy, Megaphone, HeartPulse }
 
 const badgeStyles: Record<string, string> = {
   conquista: 'bg-amber-100 text-amber-700',
   comunicado: 'bg-blue-100 text-blue-700',
+  beneficio: 'bg-rose-100 text-rose-700',
+}
+
+const badgeLabels: Record<string, string> = {
+  conquista: 'Conquista',
+  comunicado: 'Comunicado',
+  beneficio: 'Benefício',
+}
+
+const iconGradients: Record<string, string> = {
+  conquista: 'bg-gradient-to-br from-amber-400 to-amber-500',
+  comunicado: 'bg-gradient-to-br from-primary to-primary-light',
+  beneficio: 'bg-gradient-to-br from-rose-500 to-red-500',
 }
 
 export default function ComunicadosBanner() {
@@ -23,17 +36,13 @@ export default function ComunicadosBanner() {
               transition={{ delay: i * 0.1 }}
               className="flex-1 flex items-start gap-3 bg-white/70 rounded-lg p-3.5 backdrop-blur-sm"
             >
-              <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                item.tipo === 'conquista'
-                  ? 'bg-gradient-to-br from-amber-400 to-amber-500'
-                  : 'bg-gradient-to-br from-primary to-primary-light'
-              }`}>
+              <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${iconGradients[item.tipo]}`}>
                 <Icon className="w-5 h-5 text-white" />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-0.5">
                   <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${badgeStyles[item.tipo]}`}>
-                    {item.tipo === 'conquista' ? 'Conquista' : 'Comunicado'}
+                    {badgeLabels[item.tipo]}
                   </span>
                 </div>
                 <h4 className="text-sm font-semibold text-text">{item.titulo}</h4>

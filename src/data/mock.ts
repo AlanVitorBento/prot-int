@@ -147,9 +147,20 @@ export const documentosAreas = [
   { id: 11, areaId: 'agricola', nome: 'Análise de Solo - Resultados.xlsx', tipo: 'xlsx', tamanho: '340 KB', modificado: '3 Mai 2026', autor: 'Roberto Lima' },
 ]
 
+export const beneficios = [
+  { id: 1, nome: 'Plano de Saúde', descricao: 'Unimed cobertura nacional, extensivo a dependentes. Coparticipação reduzida para consultas e exames.', icon: 'HeartPulse', cor: 'from-red-500 to-rose-600', status: 'Ativo', detalhe: 'Unimed — Cobertura Nacional' },
+  { id: 2, nome: 'Plano Odontológico', descricao: 'Cobertura completa para tratamentos preventivos, restaurações e ortodontia.', icon: 'Smile', cor: 'from-sky-500 to-blue-600', status: 'Ativo', detalhe: 'Uniodonto — Completo' },
+  { id: 3, nome: 'Vale Alimentação', descricao: 'Crédito mensal para compras em supermercados, açougues e padarias da rede conveniada.', icon: 'ShoppingCart', cor: 'from-emerald-500 to-green-600', status: 'Ativo', detalhe: 'R$ 850,00/mês' },
+  { id: 4, nome: 'Vale Refeição', descricao: 'Crédito diário para refeições em restaurantes conveniados próximos às unidades.', icon: 'UtensilsCrossed', cor: 'from-orange-500 to-amber-600', status: 'Ativo', detalhe: 'R$ 38,00/dia' },
+  { id: 5, nome: 'PLR', descricao: 'Participação nos Lucros e Resultados distribuída semestralmente conforme metas atingidas.', icon: 'TrendingUp', cor: 'from-violet-500 to-purple-600', status: 'Próximo pagamento: Jul/2026', detalhe: 'Semestral' },
+  { id: 6, nome: 'Auxílio Educação', descricao: 'Subsídio de até 50% em graduação, pós-graduação e cursos técnicos em instituições conveniadas.', icon: 'GraduationCap', cor: 'from-indigo-500 to-blue-700', status: 'Ativo', detalhe: 'Até 50% — Graduação e Pós' },
+  { id: 7, nome: 'Seguro de Vida', descricao: 'Seguro de vida em grupo com cobertura para invalidez, morte acidental e assistência funeral.', icon: 'Shield', cor: 'from-slate-500 to-gray-700', status: 'Ativo', detalhe: 'Cobertura integral' },
+  { id: 8, nome: 'Previdência Privada', descricao: 'Plano de previdência complementar com contrapartida da cooperativa de até 100% da contribuição.', icon: 'Landmark', cor: 'from-teal-500 to-cyan-700', status: 'Ativo', detalhe: 'Match até 100%' },
+]
+
 export const comunicados = [
   { id: 1, tipo: 'conquista' as const, titulo: 'Meta de produção atingida!', descricao: 'Superamos a meta de recebimento de grãos do 1º trimestre em 18%. Parabéns a todos os cooperados!', icon: 'Trophy' },
-  { id: 2, tipo: 'comunicado' as const, titulo: 'Novo plano de saúde disponível', descricao: 'A partir de junho, o novo plano com cobertura ampliada estará disponível para adesão de todos os colaboradores.', icon: 'Megaphone' },
+  { id: 2, tipo: 'beneficio' as const, titulo: 'Adesão ao novo plano de saúde aberta', descricao: 'Período de adesão ao plano Unimed com cobertura ampliada até 30/06. Acesse a área de RH para mais detalhes.', icon: 'HeartPulse' },
 ]
 
 export const marketplace = [

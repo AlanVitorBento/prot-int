@@ -14,9 +14,21 @@ import {
   Download,
   Clock,
   User,
+  HeartPulse,
+  Smile,
+  ShoppingCart,
+  UtensilsCrossed,
+  GraduationCap,
+  Shield,
+  Landmark,
+  CheckCircle2,
 } from 'lucide-react'
 import { FadeIn, ScrollReveal, HoverCard } from '../components/AnimatedCard'
-import { areasDeNegocio, artigosAreas, documentosAreas } from '../data/mock'
+import { areasDeNegocio, artigosAreas, documentosAreas, beneficios } from '../data/mock'
+
+const beneficioIconMap: Record<string, React.ElementType> = {
+  HeartPulse, Smile, ShoppingCart, UtensilsCrossed, TrendingUp, GraduationCap, Shield, Landmark,
+}
 
 const iconMap: Record<string, React.ElementType> = {
   Users, Monitor, TrendingUp, Wheat,
@@ -29,7 +41,7 @@ const fileIcons: Record<string, { icon: React.ElementType; color: string; bg: st
   pptx: { icon: FileImage, color: 'text-orange-600', bg: 'bg-orange-50' },
 }
 
-type Tab = 'artigos' | 'documentos'
+type Tab = 'artigos' | 'documentos' | 'beneficios'
 
 export default function Areas() {
   const { areaId } = useParams<{ areaId?: string }>()
@@ -117,16 +129,20 @@ export default function Areas() {
 
                 {/* Tabs */}
                 <div className="flex items-center gap-1 mb-4 border-b border-border/50">
-                  {(['artigos', 'documentos'] as Tab[]).map(t => (
+                  {([
+                    { key: 'artigos' as Tab, label: `Artigos (${artigos.length})` },
+                    { key: 'documentos' as Tab, label: `Documentos (${documentos.length})` },
+                    ...(selected === 'rh' ? [{ key: 'beneficios' as Tab, label: `Benefícios (${beneficios.length})` }] : []),
+                  ]).map(t => (
                     <button
-                      key={t}
-                      onClick={() => { setTab(t); setBusca('') }}
+                      key={t.key}
+                      onClick={() => { setTab(t.key); setBusca('') }}
                       className={`relative px-4 py-2.5 text-sm font-medium transition-colors ${
-                        tab === t ? 'text-primary' : 'text-text-secondary hover:text-text'
+                        tab === t.key ? 'text-primary' : 'text-text-secondary hover:text-text'
                       }`}
                     >
-                      {t === 'artigos' ? `Artigos (${artigos.length})` : `Documentos (${documentos.length})`}
-                      {tab === t && (
+                      {t.label}
+                      {tab === t.key && (
                         <motion.div
                           layoutId="area-tab"
                           className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full"
@@ -144,7 +160,7 @@ export default function Areas() {
                     type="text"
                     value={busca}
                     onChange={e => setBusca(e.target.value)}
-                    placeholder={tab === 'artigos' ? 'Buscar artigos...' : 'Buscar documentos...'}
+                    placeholder={tab === 'artigos' ? 'Buscar artigos...' : tab === 'documentos' ? 'Buscar documentos...' : 'Buscar benefícios...'}
                     className="w-full pl-10 pr-4 py-2.5 bg-white/80 rounded-xl border border-border/50 text-sm
                       focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 focus:bg-white transition-all duration-300"
                   />
@@ -152,7 +168,54 @@ export default function Areas() {
 
                 {/* Tab content */}
                 <AnimatePresence mode="wait">
-                  {tab === 'artigos' ? (
+                  {tab === 'beneficios' ? (
+                    <motion.div
+                      key="beneficios"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {beneficios
+                          .filter(b => b.nome.toLowerCase().includes(busca.toLowerCase()))
+                          .map((b, i) => {
+                            const Icon = beneficioIconMap[b.icon] || HeartPulse
+                            return (
+                              <motion.div
+                                key={b.id}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: i * 0.05 }}
+                                className="bg-white rounded-xl border border-border/50 p-5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 cursor-pointer group"
+                              >
+                                <div className="flex items-start gap-4">
+                                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${b.cor} flex items-center justify-center flex-shrink-0 shadow-sm`}>
+                                    <Icon className="w-6 h-6 text-white" />
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <div className="flex items-center justify-between mb-1">
+                                      <h3 className="font-semibold text-text group-hover:text-primary transition-colors">{b.nome}</h3>
+                                    </div>
+                                    <p className="text-xs font-medium text-primary/80 mb-1.5">{b.detalhe}</p>
+                                    <p className="text-sm text-text-secondary leading-relaxed line-clamp-2">{b.descricao}</p>
+                                    <div className="flex items-center gap-1.5 mt-3">
+                                      <CheckCircle2 className="w-3.5 h-3.5 text-accent" />
+                                      <span className="text-xs font-medium text-accent">{b.status}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </motion.div>
+                            )
+                          })}
+                      </div>
+                      {beneficios.filter(b => b.nome.toLowerCase().includes(busca.toLowerCase())).length === 0 && (
+                        <div className="flex flex-col items-center py-12 text-text-secondary">
+                          <HeartPulse className="w-8 h-8 text-primary/20 mb-2" />
+                          <p className="text-sm">Nenhum benefício encontrado</p>
+                        </div>
+                      )}
+                    </motion.div>
+                  ) : tab === 'artigos' ? (
                     <motion.div
                       key="artigos"
                       initial={{ opacity: 0 }}
