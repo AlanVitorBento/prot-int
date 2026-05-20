@@ -6,13 +6,13 @@ export default function PrecoDiaWidget() {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="relative bg-gradient-to-br from-accent to-emerald-600 rounded-xl p-4 overflow-hidden"
+      className="relative bg-gradient-to-br from-accent to-emerald-600 rounded-[16px] p-4 overflow-hidden"
     >
       <div className="absolute -top-4 -right-4 w-20 h-20 bg-white/10 rounded-full blur-xl" />
       <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-white/5 rounded-full blur-xl" />
       <div className="relative z-10">
         <div className="flex items-center gap-2 mb-2">
-          <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+          <div className="w-8 h-8 bg-white/20 rounded-[12px] flex items-center justify-center">
             <DollarSign className="w-4 h-4 text-white" />
           </div>
           <div>
@@ -21,7 +21,7 @@ export default function PrecoDiaWidget() {
           </div>
         </div>
         <div className="flex items-end gap-2 mt-1">
-          <span className="text-2xl font-bold text-white">R$ 128,50</span>
+          <span className="text-2xl font-bold text-white tracking-tight">R$ 128,50</span>
           <span className="text-xs text-white/70 mb-1">/sc 60kg</span>
         </div>
         <div className="flex items-center gap-3 mt-2 text-[10px] text-white/60">

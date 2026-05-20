@@ -54,19 +54,19 @@ export default function EventCalendar() {
   return (
     <>
       {/* Compact widget */}
-      <div className="glass rounded-xl p-4 grain">
+      <div className="glass rounded-[16px] p-4 grain">
         <div className="flex items-center justify-between mb-3 relative">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary-light rounded-lg flex items-center justify-center shadow-sm">
+            <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary-light rounded-[12px] flex items-center justify-center shadow-sm">
               <CalendarDays className="w-4 h-4 text-white" />
             </div>
-            <h3 className="font-semibold text-sm text-text">Próximos Eventos</h3>
+            <h3 className="font-semibold text-sm text-text tracking-tight">Próximos Eventos</h3>
           </div>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setShowCalendar(true)}
-            className="flex items-center gap-1 text-xs font-medium text-primary hover:text-primary-dark transition-colors px-2 py-1 rounded-lg hover:bg-primary/5"
+            className="flex items-center gap-1 text-xs font-medium text-primary hover:text-primary-dark transition-colors duration-[250ms] px-2 py-1 rounded-[8px] hover:bg-primary/5"
           >
             <CalendarDays className="w-3.5 h-3.5" />
             Calendário
@@ -82,15 +82,15 @@ export default function EventCalendar() {
               whileHover={{ x: 4 }}
               className="flex items-center gap-3 group cursor-pointer"
             >
-              <div className="w-11 h-11 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl flex flex-col items-center justify-center">
+              <div className="w-11 h-11 bg-gradient-to-br from-primary/10 to-primary/5 rounded-[12px] flex flex-col items-center justify-center">
                 <span className="text-xs font-bold text-primary leading-none">{e.data.split(' ')[0]}</span>
                 <span className="text-[10px] text-primary/60">{e.data.split(' ')[1]}</span>
               </div>
               <div className="flex-1">
-                <p className="text-sm font-medium text-text group-hover:text-primary transition-colors">{e.titulo}</p>
+                <p className="text-sm font-medium text-text group-hover:text-primary transition-colors duration-[250ms]">{e.titulo}</p>
                 <p className="text-xs text-text-secondary">{e.local}</p>
               </div>
-              <ChevronRight className="w-4 h-4 text-text-secondary opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-0.5" />
+              <ChevronRight className="w-4 h-4 text-text-secondary opacity-0 group-hover:opacity-100 transition-all duration-[250ms] group-hover:translate-x-0.5" />
             </motion.div>
           ))}
         </div>
@@ -112,17 +112,17 @@ export default function EventCalendar() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="fixed top-[5%] left-[5%] right-[5%] bottom-[5%] z-50 bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col"
+              className="fixed top-[5%] left-[5%] right-[5%] bottom-[5%] z-50 bg-white rounded-[20px] shadow-[var(--shadow-xl)] overflow-hidden flex flex-col"
             >
               {/* Header */}
               <div className="flex items-center justify-between px-5 py-3 border-b border-border/50 bg-gradient-to-r from-primary to-primary-light text-white">
                 <div className="flex items-center gap-2">
                   <CalendarDays className="w-5 h-5" />
-                  <h2 className="font-semibold">Calendário de Eventos — C.Vale</h2>
+                  <h2 className="font-semibold tracking-tight">Calendário de Eventos — C.Vale</h2>
                 </div>
                 <button
                   onClick={() => setShowCalendar(false)}
-                  className="p-2 rounded-xl hover:bg-white/10 transition-colors"
+                  className="p-2 rounded-[12px] hover:bg-white/10 transition-colors duration-[250ms]"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -134,13 +134,13 @@ export default function EventCalendar() {
                 <div className="flex-1 p-6 flex flex-col">
                   {/* Month nav */}
                   <div className="flex items-center justify-between mb-4">
-                    <button onClick={prevMonth} className="p-2 rounded-xl hover:bg-gray-100 text-text-secondary transition-colors">
+                    <button onClick={prevMonth} className="p-2 rounded-[12px] hover:bg-gray-100 text-text-secondary transition-colors duration-[250ms]">
                       <ChevronLeft className="w-5 h-5" />
                     </button>
-                    <h3 className="text-lg font-semibold text-text">
+                    <h3 className="text-lg font-bold text-text tracking-tight">
                       {MESES[viewMonth]} {viewYear}
                     </h3>
-                    <button onClick={nextMonth} className="p-2 rounded-xl hover:bg-gray-100 text-text-secondary transition-colors">
+                    <button onClick={nextMonth} className="p-2 rounded-[12px] hover:bg-gray-100 text-text-secondary transition-colors duration-[250ms]">
                       <ChevronRight className="w-5 h-5" />
                     </button>
                   </div>
@@ -170,7 +170,7 @@ export default function EventCalendar() {
                           key={day}
                           whileHover={{ scale: 1.05 }}
                           onClick={() => setSelectedDay(day === selectedDay ? null : day)}
-                          className={`relative p-1.5 rounded-xl text-sm transition-all duration-200 min-h-[60px] flex flex-col items-center
+                          className={`relative p-1.5 rounded-[12px] text-sm transition-all duration-[250ms] min-h-[60px] flex flex-col items-center
                             ${isSelected ? 'bg-primary/10 ring-2 ring-primary/30' : 'hover:bg-gray-50'}
                             ${isToday ? 'font-bold' : ''}
                           `}
@@ -213,7 +213,7 @@ export default function EventCalendar() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.05 }}
-                        className="bg-white rounded-xl p-3 border border-border/50 hover:shadow-md transition-shadow cursor-pointer"
+                        className="bg-white rounded-[16px] p-3 border border-border/50 hover:shadow-[var(--shadow-md)] transition-shadow duration-[250ms] cursor-pointer"
                       >
                         <div className="flex items-start gap-3">
                           <div

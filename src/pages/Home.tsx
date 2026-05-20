@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
 import {
@@ -44,6 +44,8 @@ import PrecoDiaWidget from '../components/PrecoDiaWidget'
 import RevistaWidget from '../components/RevistaWidget'
 import SearchBar from '../components/SearchBar'
 import ComunicadosBanner from '../components/ComunicadosBanner'
+import GreetingHeader from '../components/GreetingHeader'
+import { CardSkeleton, WidgetSkeleton, QuickAccessSkeleton } from '../components/Skeleton'
 import { useWidgetPreferences } from '../contexts/WidgetPreferences'
 import { areasDeNegocio } from '../data/mock'
 
@@ -107,7 +109,13 @@ export default function Home() {
   const [showModal, setShowModal] = useState(false)
   const [showWidgetModal, setShowWidgetModal] = useState(false)
   const [searchApps, setSearchApps] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
   const { widgets, toggleWidget } = useWidgetPreferences()
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 800)
+    return () => clearTimeout(timer)
+  }, [])
 
   const favApps = allApps.filter(a => favorites.has(a.id))
 
@@ -134,8 +142,9 @@ export default function Home() {
         <div className="absolute -top-20 -left-20 w-72 h-72 bg-primary/[0.03] rounded-full blur-3xl" />
         <div className="absolute top-1/3 -right-16 w-56 h-56 bg-accent/[0.03] rounded-full blur-3xl" />
         <div className="absolute -bottom-16 left-1/4 w-64 h-64 bg-primary/[0.02] rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(33,64,154,0.015)_0%,transparent_70%)]" />
       </div>
+
+      <GreetingHeader />
 
       <div className="relative flex-shrink-0">
         <NewsCarousel />
@@ -150,149 +159,172 @@ export default function Home() {
       </FadeIn>
 
       <div className="relative flex flex-col lg:flex-row gap-5">
-        {/* Left sidebar - Quick access + Podcast + Revista */}
+        {/* Left sidebar - Quick access + Revista */}
         <div className="w-full lg:w-64 space-y-3 order-2 lg:order-1">
-          <FadeIn delay={0.1}>
-            <div className="flex items-center justify-between mb-3 px-1">
-              <h2 className="text-sm font-semibold text-text-secondary uppercase tracking-wider">
-                Acesso Rápido
-              </h2>
-              <motion.button
-                whileHover={{ scale: 1.1, rotate: 90 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setShowModal(true)}
-                className="p-1.5 rounded-lg hover:bg-primary/10 text-text-secondary hover:text-primary transition-colors"
-                title="Personalizar atalhos"
-              >
-                <Settings2 className="w-4 h-4" />
-              </motion.button>
-            </div>
-          </FadeIn>
-          {favApps.map((item, i) => {
-            const Icon = iconMap[item.icon]
-            return (
-              <StaggerItem key={item.id} delay={0.1 + i * 0.04}>
-                <div className="flex items-center gap-3 px-3 py-2.5 bg-white rounded-xl border border-border/50 hover:shadow-md hover:shadow-primary/5 transition-all duration-300 cursor-pointer group">
-                  <div className="w-9 h-9 bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg flex items-center justify-center group-hover:from-primary/15 group-hover:to-primary/10 transition-all duration-300 flex-shrink-0">
-                    <Icon className="w-4 h-4 text-primary" />
-                  </div>
-                  <span className="text-sm font-medium text-text-secondary group-hover:text-text transition-colors">{item.nome}</span>
+          {isLoading ? (
+            <QuickAccessSkeleton />
+          ) : (
+            <>
+              <FadeIn delay={0.1}>
+                <div className="flex items-center justify-between mb-3 px-1">
+                  <h2 className="text-sm font-semibold text-text-secondary uppercase tracking-wider">
+                    Acesso Rápido
+                  </h2>
+                  <motion.button
+                    whileHover={{ scale: 1.1, rotate: 90 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => setShowModal(true)}
+                    className="p-1.5 rounded-[12px] hover:bg-primary/10 text-text-secondary hover:text-primary transition-colors duration-[250ms]"
+                    title="Personalizar atalhos"
+                  >
+                    <Settings2 className="w-4 h-4" />
+                  </motion.button>
                 </div>
-              </StaggerItem>
-            )
-          })}
+              </FadeIn>
+              {favApps.map((item, i) => {
+                const Icon = iconMap[item.icon]
+                return (
+                  <StaggerItem key={item.id} delay={0.1 + i * 0.04}>
+                    <div className="flex items-center gap-3 px-3 py-2.5 bg-white rounded-[16px] border border-border/50 hover:shadow-[var(--shadow-md)] transition-all duration-[250ms] cursor-pointer group">
+                      <div className="w-9 h-9 bg-gradient-to-br from-primary/10 to-primary/5 rounded-[12px] flex items-center justify-center group-hover:from-primary/15 group-hover:to-primary/10 transition-all duration-[250ms] flex-shrink-0">
+                        <Icon className="w-4 h-4 text-primary" />
+                      </div>
+                      <span className="text-sm font-medium text-text-secondary group-hover:text-text transition-colors duration-[250ms]">{item.nome}</span>
+                    </div>
+                  </StaggerItem>
+                )
+              })}
 
-          {widgets.revista && (
-            <ScrollReveal delay={0.3}>
-              <div className="pt-2">
-                <RevistaWidget />
-              </div>
-            </ScrollReveal>
+              {widgets.revista && (
+                <ScrollReveal delay={0.3}>
+                  <div className="pt-2">
+                    <RevistaWidget />
+                  </div>
+                </ScrollReveal>
+              )}
+            </>
           )}
         </div>
 
         {/* Center - News */}
         <div className="flex-1 space-y-4 order-1 lg:order-2">
           <FadeIn delay={0.2}>
-            <h2 className="text-lg font-semibold text-text flex items-center gap-2">
+            <h2 className="text-lg font-bold text-text flex items-center gap-2 tracking-tight">
               <div className="w-1 h-5 bg-gradient-to-b from-primary to-primary-light rounded-full" />
               Notícias
             </h2>
           </FadeIn>
 
-          {noticias.map((noticia, i) => (
-            <ScrollReveal key={noticia.id} delay={i * 0.08}>
-              <Link to={`/noticia/${noticia.id}`} className="block">
-                <div className="bg-white rounded-xl border border-border/50 p-5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 group">
-                  <div className="flex items-start gap-4">
-                    <div className="w-20 h-20 bg-gradient-to-br from-primary/5 via-bg to-accent/5 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Wheat className="w-6 h-6 text-primary/15" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${catColors[noticia.categoria] || 'bg-gray-100 text-text-secondary'}`}>
-                          {noticia.categoria}
-                        </span>
-                        <span className="text-xs text-text-secondary">{noticia.data}</span>
-                      </div>
-                      <h3 className="font-semibold text-text group-hover:text-primary transition-colors leading-snug">{noticia.titulo}</h3>
-                      <p className="text-sm text-text-secondary mt-1 line-clamp-2">{noticia.resumo}</p>
-                    </div>
-                    <ChevronRight className="w-5 h-5 text-text-secondary opacity-0 group-hover:opacity-100 transition-all flex-shrink-0 mt-2" />
-                  </div>
-                </div>
-              </Link>
-            </ScrollReveal>
-          ))}
-
-          <FadeIn delay={0.5}>
-            <div className="text-center pt-2">
-              <Link
-                to="/feed"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary-dark transition-colors"
-              >
-                <Newspaper className="w-4 h-4" />
-                Ver todas as publicações no Feed
-                <ChevronRight className="w-4 h-4" />
-              </Link>
+          {isLoading ? (
+            <div className="space-y-4">
+              {[...Array(3)].map((_, i) => <CardSkeleton key={i} />)}
             </div>
-          </FadeIn>
+          ) : (
+            <>
+              {noticias.map((noticia, i) => (
+                <ScrollReveal key={noticia.id} delay={i * 0.08}>
+                  <Link to={`/noticia/${noticia.id}`} className="block">
+                    <div className="bg-white rounded-[16px] border border-border/50 p-5 hover:shadow-[var(--shadow-lg)] transition-all duration-[250ms] group">
+                      <div className="flex items-start gap-4">
+                        <div className="w-20 h-20 bg-gradient-to-br from-primary/5 via-bg to-accent/5 rounded-[12px] flex items-center justify-center flex-shrink-0">
+                          <Wheat className="w-6 h-6 text-primary/15" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${catColors[noticia.categoria] || 'bg-gray-100 text-text-secondary'}`}>
+                              {noticia.categoria}
+                            </span>
+                            <span className="text-xs text-text-secondary">{noticia.data}</span>
+                          </div>
+                          <h3 className="font-semibold text-text group-hover:text-primary transition-colors duration-[250ms] leading-snug">{noticia.titulo}</h3>
+                          <p className="text-sm text-text-secondary mt-1 line-clamp-2">{noticia.resumo}</p>
+                        </div>
+                        <ChevronRight className="w-5 h-5 text-text-secondary opacity-0 group-hover:opacity-100 transition-all duration-[250ms] flex-shrink-0 mt-2" />
+                      </div>
+                    </div>
+                  </Link>
+                </ScrollReveal>
+              ))}
+
+              <FadeIn delay={0.5}>
+                <div className="text-center pt-2">
+                  <Link
+                    to="/feed"
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary-dark transition-colors duration-[250ms]"
+                  >
+                    <Newspaper className="w-4 h-4" />
+                    Ver todas as publicações no Feed
+                    <ChevronRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </FadeIn>
+            </>
+          )}
         </div>
 
         {/* Right sidebar */}
         <div className="w-full lg:w-80 space-y-3 order-3">
-          {/* Areas shortcuts */}
-          <FadeIn delay={0.05}>
-            <div className="flex items-center justify-between mb-2 px-1">
-              <h3 className="text-sm font-semibold text-text-secondary uppercase tracking-wider">
-                Áreas de Negócio
-              </h3>
-              <motion.button
-                whileHover={{ scale: 1.1, rotate: 90 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setShowWidgetModal(true)}
-                className="p-1.5 rounded-lg hover:bg-primary/10 text-text-secondary hover:text-primary transition-colors"
-                title="Personalizar widgets"
-              >
-                <Settings2 className="w-4 h-4" />
-              </motion.button>
+          {isLoading ? (
+            <div className="space-y-3">
+              <WidgetSkeleton />
+              <WidgetSkeleton />
             </div>
-            <div className="grid grid-cols-2 gap-2 mb-3">
-              {areasDeNegocio.map(area => {
-                const Icon = areaIconMap[area.icon]
-                return (
-                  <Link to={`/areas/${area.id}`} key={area.id}>
-                    <div className="bg-white rounded-xl border border-border/50 p-3 hover:shadow-md hover:shadow-primary/5 transition-all duration-300 cursor-pointer group text-center">
-                      <div className={`w-10 h-10 mx-auto rounded-lg bg-gradient-to-br ${area.gradient} flex items-center justify-center mb-1.5 shadow-sm`}>
-                        <Icon className="w-5 h-5 text-white" />
-                      </div>
-                      <span className="text-xs font-medium text-text-secondary group-hover:text-text transition-colors">{area.sigla}</span>
-                    </div>
-                  </Link>
-                )
-              })}
-            </div>
-          </FadeIn>
+          ) : (
+            <>
+              {/* Areas shortcuts */}
+              <FadeIn delay={0.05}>
+                <div className="flex items-center justify-between mb-2 px-1">
+                  <h3 className="text-sm font-semibold text-text-secondary uppercase tracking-wider">
+                    Áreas de Negócio
+                  </h3>
+                  <motion.button
+                    whileHover={{ scale: 1.1, rotate: 90 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => setShowWidgetModal(true)}
+                    className="p-1.5 rounded-[12px] hover:bg-primary/10 text-text-secondary hover:text-primary transition-colors duration-[250ms]"
+                    title="Personalizar widgets"
+                  >
+                    <Settings2 className="w-4 h-4" />
+                  </motion.button>
+                </div>
+                <div className="grid grid-cols-2 gap-2 mb-3">
+                  {areasDeNegocio.map(area => {
+                    const Icon = areaIconMap[area.icon]
+                    return (
+                      <Link to={`/areas/${area.id}`} key={area.id}>
+                        <div className="bg-white rounded-[16px] border border-border/50 p-3 hover:shadow-[var(--shadow-md)] transition-all duration-[250ms] cursor-pointer group text-center">
+                          <div className={`w-10 h-10 mx-auto rounded-[12px] bg-gradient-to-br ${area.gradient} flex items-center justify-center mb-1.5 shadow-sm`}>
+                            <Icon className="w-5 h-5 text-white" />
+                          </div>
+                          <span className="text-xs font-medium text-text-secondary group-hover:text-text transition-colors duration-[250ms]">{area.sigla}</span>
+                        </div>
+                      </Link>
+                    )
+                  })}
+                </div>
+              </FadeIn>
 
-          {widgets.precoDia && (
-            <ScrollReveal delay={0.1}>
-              <PrecoDiaWidget />
-            </ScrollReveal>
-          )}
-          {widgets.cotacoes && (
-            <ScrollReveal delay={0.15}>
-              <CotacoesWidget />
-            </ScrollReveal>
-          )}
-          {widgets.eventCalendar && (
-            <ScrollReveal delay={0.2}>
-              <EventCalendar />
-            </ScrollReveal>
-          )}
-          {widgets.weather && (
-            <ScrollReveal delay={0.25}>
-              <WeatherCard />
-            </ScrollReveal>
+              {widgets.precoDia && (
+                <ScrollReveal delay={0.1}>
+                  <PrecoDiaWidget />
+                </ScrollReveal>
+              )}
+              {widgets.cotacoes && (
+                <ScrollReveal delay={0.15}>
+                  <CotacoesWidget />
+                </ScrollReveal>
+              )}
+              {widgets.eventCalendar && (
+                <ScrollReveal delay={0.2}>
+                  <EventCalendar />
+                </ScrollReveal>
+              )}
+              {widgets.weather && (
+                <ScrollReveal delay={0.25}>
+                  <WeatherCard />
+                </ScrollReveal>
+              )}
+            </>
           )}
         </div>
       </div>
@@ -313,16 +345,16 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="fixed top-[15%] left-1/2 -translate-x-1/2 z-50 bg-white rounded-2xl shadow-2xl w-full max-w-md"
+              className="fixed top-[15%] left-1/2 -translate-x-1/2 z-50 bg-white rounded-[20px] shadow-[var(--shadow-xl)] w-full max-w-md"
             >
               <div className="flex items-center justify-between px-5 py-4 border-b border-border/50">
                 <div>
-                  <h2 className="font-bold text-text text-lg">Personalizar Widgets</h2>
+                  <h2 className="font-bold text-text text-lg tracking-tight">Personalizar Widgets</h2>
                   <p className="text-xs text-text-secondary mt-0.5">Escolha quais widgets exibir na Home</p>
                 </div>
                 <button
                   onClick={() => setShowWidgetModal(false)}
-                  className="p-2 rounded-xl hover:bg-gray-100 text-text-secondary transition-colors"
+                  className="p-2 rounded-[12px] hover:bg-gray-100 text-text-secondary transition-colors duration-[250ms]"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -338,9 +370,9 @@ export default function Home() {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.04 }}
                       onClick={() => toggleWidget(w.key)}
-                      className="w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 hover:bg-gray-50"
+                      className="w-full flex items-center gap-3 px-3 py-3 rounded-[12px] transition-all duration-[250ms] hover:bg-gray-50"
                     >
-                      <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${
+                      <div className={`w-9 h-9 rounded-[12px] flex items-center justify-center flex-shrink-0 transition-colors duration-[250ms] ${
                         enabled ? 'bg-primary/10' : 'bg-gray-100'
                       }`}>
                         <Icon className={`w-4 h-4 ${enabled ? 'text-primary' : 'text-text-secondary'}`} />
@@ -353,7 +385,7 @@ export default function Home() {
                           <p className="text-[10px] text-text-secondary">{w.note}</p>
                         )}
                       </div>
-                      <div className={`w-10 h-6 rounded-full p-0.5 transition-colors duration-300 ${
+                      <div className={`w-10 h-6 rounded-full p-0.5 transition-colors duration-[250ms] ${
                         enabled ? 'bg-primary' : 'bg-gray-200'
                       }`}>
                         <motion.div
@@ -366,12 +398,12 @@ export default function Home() {
                   )
                 })}
               </div>
-              <div className="px-5 py-3 border-t border-border/50 bg-bg/50 rounded-b-2xl">
+              <div className="px-5 py-3 border-t border-border/50 bg-bg/50 rounded-b-[20px]">
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setShowWidgetModal(false)}
-                  className="w-full px-4 py-2 bg-gradient-to-r from-primary to-primary-light text-white rounded-xl text-sm font-medium shadow-md shadow-primary/20"
+                  className="w-full px-4 py-2.5 bg-gradient-to-r from-primary to-primary-light text-white rounded-[12px] text-sm font-semibold shadow-[var(--shadow-primary)]"
                 >
                   Concluído
                 </motion.button>
@@ -397,17 +429,17 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="fixed top-[10%] left-1/2 -translate-x-1/2 z-50 bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[80vh] flex flex-col"
+              className="fixed top-[10%] left-1/2 -translate-x-1/2 z-50 bg-white rounded-[20px] shadow-[var(--shadow-xl)] w-full max-w-lg max-h-[80vh] flex flex-col"
             >
               {/* Header */}
               <div className="flex items-center justify-between px-5 py-4 border-b border-border/50">
                 <div>
-                  <h2 className="font-bold text-text text-lg">Personalizar Acesso Rápido</h2>
+                  <h2 className="font-bold text-text text-lg tracking-tight">Personalizar Acesso Rápido</h2>
                   <p className="text-xs text-text-secondary mt-0.5">Escolha os sistemas que deseja ver na sua Home</p>
                 </div>
                 <button
                   onClick={() => setShowModal(false)}
-                  className="p-2 rounded-xl hover:bg-gray-100 text-text-secondary transition-colors"
+                  className="p-2 rounded-[12px] hover:bg-gray-100 text-text-secondary transition-colors duration-[250ms]"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -420,8 +452,8 @@ export default function Home() {
                   value={searchApps}
                   onChange={e => setSearchApps(e.target.value)}
                   placeholder="Buscar sistemas..."
-                  className="w-full px-4 py-2.5 bg-bg rounded-xl border border-border/50 text-sm
-                    focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 transition-all"
+                  className="w-full px-4 py-2.5 bg-bg rounded-[12px] border border-border/50 text-sm
+                    focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 transition-all duration-[250ms]"
                 />
               </div>
 
@@ -442,11 +474,11 @@ export default function Home() {
                               key={app.id}
                               whileHover={{ x: 2 }}
                               onClick={() => toggleFav(app.id)}
-                              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all duration-200
+                              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-[12px] text-left transition-all duration-[250ms]
                                 ${isFav ? 'bg-primary/5 border border-primary/20' : 'hover:bg-gray-50 border border-transparent'}
                               `}
                             >
-                              <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors
+                              <div className={`w-9 h-9 rounded-[12px] flex items-center justify-center flex-shrink-0 transition-colors duration-[250ms]
                                 ${isFav ? 'bg-primary/10' : 'bg-gray-100'}
                               `}>
                                 <Icon className={`w-4 h-4 ${isFav ? 'text-primary' : 'text-text-secondary'}`} />
@@ -454,7 +486,7 @@ export default function Home() {
                               <span className={`text-sm font-medium flex-1 ${isFav ? 'text-text' : 'text-text-secondary'}`}>
                                 {app.nome}
                               </span>
-                              <Star className={`w-4 h-4 transition-colors ${isFav ? 'fill-amber-400 text-amber-400' : 'text-gray-300'}`} />
+                              <Star className={`w-4 h-4 transition-colors duration-[250ms] ${isFav ? 'fill-amber-400 text-amber-400' : 'text-gray-300'}`} />
                             </motion.button>
                           )
                         })}
@@ -465,14 +497,14 @@ export default function Home() {
               </div>
 
               {/* Footer */}
-              <div className="px-5 py-3 border-t border-border/50 bg-bg/50 rounded-b-2xl">
+              <div className="px-5 py-3 border-t border-border/50 bg-bg/50 rounded-b-[20px]">
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-text-secondary">{favorites.size} sistemas selecionados</span>
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setShowModal(false)}
-                    className="px-4 py-2 bg-gradient-to-r from-primary to-primary-light text-white rounded-xl text-sm font-medium shadow-md shadow-primary/20"
+                    className="px-4 py-2.5 bg-gradient-to-r from-primary to-primary-light text-white rounded-[12px] text-sm font-semibold shadow-[var(--shadow-primary)]"
                   >
                     Salvar
                   </motion.button>

@@ -74,7 +74,7 @@ export default function NewsCarousel() {
   const TypeIcon = slide.typeIcon
 
   return (
-    <div className="relative overflow-hidden rounded-2xl mb-6 group">
+    <div className="relative overflow-hidden rounded-[16px] mb-6 group">
       <AnimatePresence mode="wait" custom={direction}>
         <motion.div
           key={slide.id}
@@ -109,7 +109,7 @@ export default function NewsCarousel() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-xl lg:text-2xl font-bold mb-2 max-w-2xl leading-snug"
+              className="text-xl lg:text-2xl font-bold mb-2 max-w-2xl leading-snug tracking-tight"
             >
               {slide.title}
             </motion.h2>
@@ -130,7 +130,7 @@ export default function NewsCarousel() {
             >
               <Link
                 to={`/noticia/${slide.id}`}
-                className="inline-block mt-4 px-5 py-2 bg-white/15 backdrop-blur-sm rounded-lg text-sm font-medium hover:bg-white/25 transition-colors border border-white/10"
+                className="inline-block mt-4 px-5 py-2 bg-white/15 backdrop-blur-sm rounded-[12px] text-sm font-medium hover:bg-white/25 transition-colors duration-[250ms] border border-white/10"
               >
                 Ler mais
               </Link>
@@ -142,13 +142,13 @@ export default function NewsCarousel() {
       {/* Arrows */}
       <button
         onClick={prev}
-        className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/40"
+        className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-[250ms] hover:bg-black/40"
       >
         <ChevronLeft className="w-5 h-5" />
       </button>
       <button
         onClick={next}
-        className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/40"
+        className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-[250ms] hover:bg-black/40"
       >
         <ChevronRight className="w-5 h-5" />
       </button>
@@ -159,10 +159,10 @@ export default function NewsCarousel() {
           <button
             key={i}
             onClick={() => goTo(i)}
-            className="relative h-2 rounded-full transition-all duration-300 overflow-hidden"
+            className="relative h-2 rounded-full transition-all duration-[250ms] overflow-hidden"
             style={{ width: i === current ? 24 : 8 }}
           >
-            <div className={`absolute inset-0 rounded-full transition-colors duration-300 ${i === current ? 'bg-white' : 'bg-white/40 hover:bg-white/60'}`} />
+            <div className={`absolute inset-0 rounded-full transition-colors duration-[250ms] ${i === current ? 'bg-white' : 'bg-white/40 hover:bg-white/60'}`} />
             {i === current && (
               <motion.div
                 className="absolute inset-0 bg-white/60 rounded-full origin-left"

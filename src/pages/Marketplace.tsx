@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'motion/react'
-import { Search, Tag, MapPin, Clock, ShoppingBag } from 'lucide-react'
+import { Search, Tag, MapPin, ShoppingBag, Heart, Eye } from 'lucide-react'
 import { FadeIn, ScrollReveal, HoverCard } from '../components/AnimatedCard'
 import { marketplace } from '../data/mock'
 
@@ -43,7 +44,7 @@ export default function Marketplace() {
   return (
     <div className="max-w-7xl mx-auto">
       <FadeIn>
-        <h1 className="text-2xl font-bold text-text mb-1">Marketplace</h1>
+        <h1 className="text-2xl font-bold text-text mb-1 tracking-tight">Marketplace</h1>
         <p className="text-text-secondary text-sm mb-6">Compre, venda e ofereça serviços para colegas da cooperativa</p>
       </FadeIn>
 
@@ -56,8 +57,8 @@ export default function Marketplace() {
               value={busca}
               onChange={e => setBusca(e.target.value)}
               placeholder="Buscar anúncios..."
-              className="w-full pl-10 pr-4 py-2.5 bg-white/80 rounded-xl border border-border/50 text-sm
-                focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 focus:bg-white transition-all duration-300"
+              className="w-full pl-10 pr-4 py-2.5 bg-white/80 rounded-[16px] border border-border/50 text-sm
+                focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 focus:bg-white transition-all duration-[250ms]"
             />
           </div>
           <div className="flex gap-2 flex-wrap">
@@ -67,9 +68,9 @@ export default function Marketplace() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setCategoria(cat.value)}
-                className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-300
+                className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-[250ms]
                   ${categoria === cat.value
-                    ? 'bg-gradient-to-r from-primary to-primary-light text-white shadow-md shadow-primary/20'
+                    ? 'bg-gradient-to-r from-primary to-primary-light text-white shadow-[var(--shadow-primary)]'
                     : 'bg-white border border-border/50 text-text-secondary hover:bg-gray-50'
                   }`}
               >
@@ -84,34 +85,47 @@ export default function Marketplace() {
         {filtered.map((item, i) => (
           <ScrollReveal key={item.id} delay={i * 0.06}>
             <HoverCard>
-              <div className="bg-white rounded-xl border border-border/50 overflow-hidden cursor-pointer group transition-all duration-300">
-                {item.imagem && (
-                  <div className={`w-full h-44 bg-gradient-to-br ${catGradients[item.categoria] || 'from-gray-50 to-gray-100'} flex items-center justify-center`}>
-                    <ShoppingBag className="w-10 h-10 text-primary/15" />
-                  </div>
-                )}
-                <div className="p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${catColors[item.categoria]}`}>
-                      <Tag className="w-3 h-3" />
-                      {categorias.find(c => c.value === item.categoria)?.label}
-                    </span>
-                  </div>
-                  <h3 className="font-semibold text-text group-hover:text-primary transition-colors">{item.titulo}</h3>
-                  <p className="text-sm text-text-secondary mt-1 line-clamp-2 leading-relaxed">{item.descricao}</p>
-                  <p className="text-lg font-bold text-primary mt-2">{item.preco}</p>
-                  <div className="flex items-center justify-between mt-3 pt-3 border-t border-border/50">
-                    <div className="flex items-center gap-1.5 text-text-secondary text-xs">
-                      <MapPin className="w-3 h-3" />
-                      {item.usuario}
+              <Link to={`/marketplace/${item.id}`} className="block">
+                <div className="bg-white rounded-[16px] border border-border/50 overflow-hidden cursor-pointer group transition-all duration-[250ms]">
+                  {item.imagem && (
+                    <div className={`relative w-full h-44 bg-gradient-to-br ${catGradients[item.categoria] || 'from-gray-50 to-gray-100'} flex items-center justify-center`}>
+                      <ShoppingBag className="w-10 h-10 text-primary/15" />
+                      {item.vendido && (
+                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                          <span className="bg-black/60 backdrop-blur-sm text-white px-4 py-1.5 rounded-[8px] text-sm font-bold">VENDIDO</span>
+                        </div>
+                      )}
                     </div>
-                    <div className="flex items-center gap-1.5 text-text-secondary text-xs">
-                      <Clock className="w-3 h-3" />
-                      {item.data}
+                  )}
+                  <div className="p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${catColors[item.categoria]}`}>
+                        <Tag className="w-3 h-3" />
+                        {categorias.find(c => c.value === item.categoria)?.label}
+                      </span>
+                    </div>
+                    <h3 className="font-semibold text-text group-hover:text-primary transition-colors duration-[250ms]">{item.titulo}</h3>
+                    <p className="text-sm text-text-secondary mt-1 line-clamp-2 leading-relaxed">{item.descricao}</p>
+                    <p className={`text-lg font-bold mt-2 ${item.vendido ? 'text-text-secondary line-through' : 'text-primary'}`}>{item.preco}</p>
+                    <div className="flex items-center justify-between mt-3 pt-3 border-t border-border/50">
+                      <div className="flex items-center gap-1.5 text-text-secondary text-xs">
+                        <MapPin className="w-3 h-3" />
+                        {item.usuario}
+                      </div>
+                      <div className="flex items-center gap-3 text-text-secondary text-xs">
+                        <span className="flex items-center gap-1">
+                          <Heart className="w-3 h-3" />
+                          {item.likes}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Eye className="w-3 h-3" />
+                          {item.visualizacoes}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             </HoverCard>
           </ScrollReveal>
         ))}
@@ -121,7 +135,7 @@ export default function Marketplace() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="flex flex-col items-center justify-center h-48 glass rounded-xl grain"
+          className="flex flex-col items-center justify-center h-48 glass rounded-[16px] grain"
         >
           <ShoppingBag className="w-8 h-8 text-primary/30 mb-2" />
           <p className="text-text-secondary text-sm">Nenhum anúncio encontrado</p>

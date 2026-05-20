@@ -10,10 +10,10 @@ const cotacoes = [
 
 export default function CotacoesWidget() {
   return (
-    <div className="bg-white rounded-xl border border-border/50 overflow-hidden">
+    <div className="bg-white rounded-[16px] border border-border/50 overflow-hidden">
       <div className="px-4 py-3 bg-gradient-to-r from-primary to-primary-dark flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-white">Cotações do Dia</h3>
-        <span className="text-[10px] text-white/60">18/05/2026</span>
+        <h3 className="text-sm font-semibold text-white tracking-tight">Cotações do Dia</h3>
+        <span className="text-[10px] text-white/60">19/05/2026</span>
       </div>
       <div className="divide-y divide-border/30">
         {cotacoes.map((item, i) => (
@@ -22,7 +22,7 @@ export default function CotacoesWidget() {
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1 + i * 0.05 }}
-            className="flex items-center justify-between px-4 py-2.5 hover:bg-bg/50 transition-colors"
+            className="flex items-center justify-between px-4 py-2.5 hover:bg-bg/50 transition-colors duration-[250ms]"
           >
             <div>
               <p className="text-sm font-medium text-text">{item.nome}</p>
@@ -42,7 +42,7 @@ export default function CotacoesWidget() {
         ))}
       </div>
       <div className="px-4 py-2.5 border-t border-border/30">
-        <button className="flex items-center gap-1 text-xs font-medium text-primary hover:text-primary-dark transition-colors">
+        <button className="flex items-center gap-1 text-xs font-medium text-primary hover:text-primary-dark transition-colors duration-[250ms]">
           Ver todos os indicadores
           <ArrowRight className="w-3 h-3" />
         </button>

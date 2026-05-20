@@ -87,17 +87,17 @@ export default function SearchBar() {
       <div ref={containerRef} className="relative w-full mb-5">
         {/* Label */}
         <div className="flex items-center gap-2 mb-2">
-          <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-primary to-primary-light flex items-center justify-center">
+          <div className="w-6 h-6 rounded-[8px] bg-gradient-to-br from-primary to-primary-light flex items-center justify-center">
             <Users className="w-3.5 h-3.5 text-white" />
           </div>
           <span className="text-sm font-semibold text-text">Buscar Colaboradores</span>
           <span className="text-[10px] text-text-secondary bg-bg px-2 py-0.5 rounded-full">Nome, cargo, área, matrícula, ramal</span>
         </div>
 
-        <div className={`relative flex items-center transition-all duration-300 ${
-          focused ? 'ring-2 ring-primary/30 shadow-xl shadow-primary/10 border-primary/40' : 'shadow-md shadow-black/5 border-border'
-        } bg-white rounded-xl border overflow-hidden`}>
-          <div className="absolute left-3 w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center pointer-events-none">
+        <div className={`relative flex items-center transition-all duration-[250ms] ${
+          focused ? 'ring-2 ring-primary/30 shadow-[var(--shadow-lg)] border-primary/40' : 'shadow-[var(--shadow-md)] border-border'
+        } bg-white rounded-[16px] border overflow-hidden`}>
+          <div className="absolute left-3 w-9 h-9 rounded-[12px] bg-primary/10 flex items-center justify-center pointer-events-none">
             <Search className="w-4.5 h-4.5 text-primary" />
           </div>
           <input
@@ -112,7 +112,7 @@ export default function SearchBar() {
           {query && (
             <button
               onClick={() => { setQuery(''); inputRef.current?.focus() }}
-              className="absolute right-3 p-1 rounded-lg hover:bg-gray-100 text-text-secondary transition-colors"
+              className="absolute right-3 p-1 rounded-[8px] hover:bg-gray-100 text-text-secondary transition-colors duration-[250ms]"
             >
               <X className="w-4 h-4" />
             </button>
@@ -126,7 +126,7 @@ export default function SearchBar() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.98 }}
               transition={{ duration: 0.2 }}
-              className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl border border-border/50 shadow-xl shadow-black/10 overflow-hidden z-40 max-h-[400px] overflow-y-auto"
+              className="absolute top-full left-0 right-0 mt-2 bg-white rounded-[16px] border border-border/50 shadow-[var(--shadow-xl)] overflow-hidden z-40 max-h-[400px] overflow-y-auto"
             >
               {!hasResults ? (
                 <div className="flex flex-col items-center py-8 text-text-secondary">
@@ -148,7 +148,7 @@ export default function SearchBar() {
                         animate={{ opacity: 1 }}
                         transition={{ delay: i * 0.03 }}
                         onClick={() => { setSelectedPerson(pessoa); setFocused(false) }}
-                        className="w-full flex items-center gap-3 px-4 py-3 hover:bg-primary/5 transition-colors text-left border-b border-border/20 last:border-0"
+                        className="w-full flex items-center gap-3 px-4 py-3 hover:bg-primary/5 transition-colors duration-[250ms] text-left border-b border-border/20 last:border-0"
                       >
                         <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-dark rounded-full flex items-center justify-center text-white text-xs font-semibold flex-shrink-0 shadow-sm">
                           {pessoa.avatar}
@@ -187,7 +187,7 @@ export default function SearchBar() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden"
+              className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-white rounded-[20px] shadow-[var(--shadow-xl)] w-full max-w-md overflow-hidden"
             >
               {/* Header gradient */}
               <div className="h-20 bg-gradient-to-r from-primary via-primary-light to-primary relative overflow-hidden">
@@ -195,7 +195,7 @@ export default function SearchBar() {
                 <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-white/5 rounded-full blur-xl" />
                 <button
                   onClick={() => setSelectedPerson(null)}
-                  className="absolute top-3 right-3 p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors"
+                  className="absolute top-3 right-3 p-1.5 rounded-[12px] bg-white/10 hover:bg-white/20 text-white transition-colors duration-[250ms]"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -207,18 +207,18 @@ export default function SearchBar() {
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ type: 'spring', delay: 0.1 }}
-                  className="-mt-10 w-20 h-20 bg-gradient-to-br from-primary to-primary-dark rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg shadow-primary/30 border-4 border-white mx-auto"
+                  className="-mt-10 w-20 h-20 bg-gradient-to-br from-primary to-primary-dark rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-[var(--shadow-primary)] border-4 border-white mx-auto"
                 >
                   {selectedPerson.avatar}
                 </motion.div>
 
                 <div className="text-center mt-3">
-                  <h2 className="text-xl font-bold text-text">{selectedPerson.nome}</h2>
+                  <h2 className="text-xl font-bold text-text tracking-tight">{selectedPerson.nome}</h2>
                   <p className="text-primary font-medium text-sm mt-0.5">{selectedPerson.cargo}</p>
                 </div>
 
                 {/* Info grid */}
-                <div className="mt-5 space-y-0 bg-bg/50 rounded-xl overflow-hidden border border-border/30">
+                <div className="mt-5 space-y-0 bg-bg/50 rounded-[16px] overflow-hidden border border-border/30">
                   {[
                     { icon: Hash, label: 'Matrícula', value: selectedPerson.matricula },
                     { icon: Building2, label: 'Área', value: selectedPerson.area },
@@ -246,14 +246,14 @@ export default function SearchBar() {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-gradient-to-r from-primary to-primary-light text-white rounded-xl text-sm font-medium shadow-md shadow-primary/20"
+                    className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-gradient-to-r from-primary to-primary-light text-white rounded-[12px] text-sm font-semibold shadow-[var(--shadow-primary)]"
                   >
                     <Mail className="w-4 h-4" /> E-mail
                   </motion.button>
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-primary/10 text-primary rounded-xl text-sm font-medium"
+                    className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-primary/10 text-primary rounded-[12px] text-sm font-semibold"
                   >
                     <MessageSquare className="w-4 h-4" /> Teams
                   </motion.button>

@@ -56,7 +56,7 @@ export default function ComunicadosBanner() {
   const BeneficioIcon = iconMap[beneficio.icon] || HeartPulse
 
   return (
-    <div className="w-full rounded-xl bg-gradient-to-r from-accent/10 via-primary/5 to-accent/10 border border-accent/20 p-4 mb-5">
+    <div className="w-full rounded-[16px] bg-gradient-to-r from-accent/10 via-primary/5 to-accent/10 border border-accent/20 p-4 mb-5">
       <div className="flex flex-col sm:flex-row gap-4">
         {/* Left - Fixed destaque */}
         {destaques.slice(0, 1).map((item, i) => {
@@ -67,9 +67,9 @@ export default function ComunicadosBanner() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="flex-1 flex items-start gap-3 bg-white/70 rounded-lg p-3.5 backdrop-blur-sm"
+              className="flex-1 flex items-start gap-3 bg-white/70 rounded-[12px] p-3.5 backdrop-blur-sm"
             >
-              <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${iconGradients[item.tipo]}`}>
+              <div className={`w-10 h-10 rounded-[12px] flex items-center justify-center flex-shrink-0 ${iconGradients[item.tipo]}`}>
                 <Icon className="w-5 h-5 text-white" />
               </div>
               <div className="flex-1 min-w-0">
@@ -95,9 +95,9 @@ export default function ComunicadosBanner() {
               exit={{ opacity: 0, x: -30 }}
               transition={{ duration: 0.4 }}
               onClick={() => navigate('/areas/rh?tab=beneficios')}
-              className="flex items-start gap-3 bg-white/70 rounded-lg p-3.5 backdrop-blur-sm h-full cursor-pointer hover:bg-white/90 transition-colors"
+              className="flex items-start gap-3 bg-white/70 rounded-[12px] p-3.5 backdrop-blur-sm h-full cursor-pointer hover:bg-white/90 transition-colors duration-[250ms]"
             >
-              <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 bg-gradient-to-br ${beneficio.cor}`}>
+              <div className={`w-10 h-10 rounded-[12px] flex items-center justify-center flex-shrink-0 bg-gradient-to-br ${beneficio.cor}`}>
                 <BeneficioIcon className="w-5 h-5 text-white" />
               </div>
               <div className="flex-1 min-w-0">
@@ -119,7 +119,7 @@ export default function ComunicadosBanner() {
               <button
                 key={i}
                 onClick={() => setCurrentBeneficio(i)}
-                className={`h-1 rounded-full transition-all duration-300 ${
+                className={`h-1 rounded-full transition-all duration-[250ms] ${
                   i === currentBeneficio ? 'w-4 bg-primary/60' : 'w-1.5 bg-primary/15'
                 }`}
               />

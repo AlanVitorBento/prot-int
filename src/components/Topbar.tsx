@@ -39,7 +39,7 @@ export default function Topbar() {
         <div className="flex items-center h-14 px-4 lg:px-6 gap-4">
           {/* Logo */}
           <div className="flex items-center gap-2.5 mr-4">
-            <div className="w-8 h-8 bg-gradient-to-br from-accent to-accent-light rounded-lg flex items-center justify-center shadow-lg shadow-accent/30">
+            <div className="w-8 h-8 bg-gradient-to-br from-accent to-accent-light rounded-[12px] flex items-center justify-center shadow-[var(--shadow-accent)]">
               <Wheat className="w-4 h-4 text-white" />
             </div>
             <div className="hidden sm:flex flex-col">
@@ -55,7 +55,7 @@ export default function Topbar() {
                 key={item.to}
                 to={item.to}
                 className={({ isActive }) => `
-                  flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 relative
+                  flex items-center gap-2 px-3 py-1.5 rounded-[12px] text-sm font-medium transition-all duration-[250ms] relative
                   ${isActive
                     ? 'text-white bg-white/10'
                     : 'text-white/60 hover:text-white hover:bg-white/5'
@@ -88,7 +88,7 @@ export default function Topbar() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="p-2 rounded-lg hover:bg-white/10 text-white/60 relative transition-colors"
+              className="p-2 rounded-[12px] hover:bg-white/10 text-white/60 relative transition-colors duration-[250ms]"
             >
               <Bell className="w-4 h-4" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full border border-sidebar" />
@@ -128,7 +128,7 @@ export default function Topbar() {
                     to={item.to}
                     onClick={() => setMobileMenu(false)}
                     className={({ isActive }) => `
-                      flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all
+                      flex items-center gap-2 px-3 py-2 rounded-[12px] text-sm font-medium transition-all duration-[250ms]
                       ${isActive ? 'text-white bg-white/10' : 'text-white/60 hover:text-white hover:bg-white/5'}
                     `}
                   >
